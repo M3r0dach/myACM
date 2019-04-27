@@ -1,6 +1,7 @@
 import pathToRegexp  from "path-to-regexp";
-import { fetchBlogs, fetchBlog } from "../services/article";
+import { fetchBlogs, fetchBlog, createBlog, updateBlog } from "../services/article";
 import { extractParams } from "../utils/qs";
+import { message } from "antd";
 const emptyBlog = {
     tags: [],
     content: '',
@@ -72,6 +73,26 @@ export default {
             const response = yield call(fetchBlog, id)
             yield put({type:'saveItem', payload:response})
         },
+        *create({payload}, {put, call}) {
+            const response = yield call(createBlog,payload)
+            if(response.err_code!==1&&response.article!=null) {
+                message.success('添加成功')
+                yield put({ type: 'createSuccess', payload: response.article })
+            } else {
+                const err = response.message? `: ${response.message}`:''
+                message.error(`添加失败${err}`)
+            }
+        },
+        *update({payload}, {put, call}) {
+            const response = yield call(updateBlog,payload.id, payload)
+            if(response.err_code!==1&&response.article!=null) {
+                message.success('添加成功')
+                yield put({ type: 'updateSuccess', payload: response.article })
+            } else {
+                const err = response.message? `: ${response.message}`:''
+                message.error(`添加失败${err}`)
+            }
+        }
     },
     reducers: {
         saveParams(state, {payload}) {
@@ -89,28 +110,17 @@ export default {
         saveList(state, {payload}) {
             return {...state, list: payload.items}
         },
-        update(state, {payload}) {
+        updateSuccess(state, {payload}) {
             const list = state.list.map(
                 e=>(e.id==payload.id?{...e, ...payload}:e)
             )
             return {...state, list}
         },
-        add(state, {payload}) {
-            const id = 1+state.list.map(c=>c.id).reduce((x,y)=>x>y?x:y)
-            var blog = {
-                id,
-                article_type:'Solution',
-                like_times: 0,
-                summary: payload.content,
-                created_at: new Date().toDateString(),
-                updated_at: new Date().toDateString(),
-                user:{
-                    id:2,
-                    name: "admin"
-                },
-                ...payload,
+        createSuccess(state, {payload:account}) {
+            return {
+                ...state,
+                list: state.list.concat(account)
             }
-            return {list: state.list.concat(blog)}
         },
         remove(state, {payload:id}) {
             return {

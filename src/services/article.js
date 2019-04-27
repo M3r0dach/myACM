@@ -13,4 +13,23 @@ const fetchBlog = (id)=>{
 const fetchComments = (id)=>{
     return request(API_HOST+`/api/v1/articles/${id}/comments`, { })
 }
-export {fetchBlogs, fetchBlog, fetchComments}
+const createBlog = (params) => {
+    console.log('create blog')
+    return request(`${API_HOST}/api/v1/articles`, {
+        method: 'POST', body: JSON.stringify(params),
+    }, true)
+}
+const updateBlog = (id, params) => {
+    console.log('update blog')
+    return request(`${API_HOST}/api/v1/articles/${id}`, {
+        method: 'PUT', body: JSON.stringify(params),
+    }, true)
+}
+export {fetchBlogs, fetchBlog, fetchComments, createBlog, updateBlog}
+var o = {
+    article_type: "Solution",
+    content: "happy happy happy fox",
+    status: 1,
+    tags: ["fox", "good"],
+    title: "What about the foxes",
+}

@@ -14,9 +14,9 @@ class BlogForm extends React.Component{
     console.log(this.state)
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of BlogForm: ', values);
         this.props.onSubmit({
           status:this.state.status,
+          article_type: "Solution",
           ...values
         })
       }

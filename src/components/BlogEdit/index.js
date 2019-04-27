@@ -12,7 +12,7 @@ class BlogEdit extends React.Component{
       this.props.dispatch({type:'blogs/update', payload: {...payload, id}})
       console.log('修改文章')
     }else {
-      this.props.dispatch({type:'blogs/add', payload})
+      this.props.dispatch({type:'blogs/create', payload})
       console.log('创建文章')
     }
     this.props.history.replace('/principle')

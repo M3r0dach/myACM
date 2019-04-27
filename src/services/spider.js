@@ -23,7 +23,6 @@ const fetchAccounts = (page, per, params)=>{
 }
 const createAccount = (params) => {
     console.log('create account')
-    console.log(params)
     return request(`${API_HOST}/api/v1/accounts`, {
         method: 'POST', body: JSON.stringify(params),
     }, true)
