@@ -1,0 +1,11 @@
+.tagSider{
+    width: 100%;
+}
+.tagSider table{
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+}
+.tagRight{
+    text-align: right;
+}
