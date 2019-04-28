@@ -10,9 +10,9 @@ class ProfileForm extends React.Component{
       if (!err) {
         console.log('Received values of Profile Form: ', values);
         this.props.dispatch({
-          type:'users/modify',
+          type:'users/update',
           payload:{
-            ...values,
+            params: values,
             id:this.props.user.id
           }
         })
@@ -82,7 +82,7 @@ class ProfileForm extends React.Component{
         </Form.Item>
         <Form.Item label='Blog'>
           {getFieldDecorator('situation')(
-            <Input placeholder="邮箱地址" />
+            <Input placeholder="博客地址" />
           )}
         </Form.Item>
         <Form.Item label='专业年级'>

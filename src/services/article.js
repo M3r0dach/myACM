@@ -25,11 +25,8 @@ const updateBlog = (id, params) => {
         method: 'PUT', body: JSON.stringify(params),
     }, true)
 }
-export {fetchBlogs, fetchBlog, fetchComments, createBlog, updateBlog}
-var o = {
-    article_type: "Solution",
-    content: "happy happy happy fox",
-    status: 1,
-    tags: ["fox", "good"],
-    title: "What about the foxes",
+const deleteBlog = id => {
+    console.log('delete blog')
+    return request(API_HOST+`/api/v1/articles/${id}`, {method: 'DELETE'})
 }
+export {fetchBlogs, fetchBlog, fetchComments, createBlog, updateBlog, deleteBlog}

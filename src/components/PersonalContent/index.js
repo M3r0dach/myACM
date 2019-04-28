@@ -1,8 +1,8 @@
 import React from 'react'
 import { Tabs, Layout } from "antd";
 import 'antd/dist/antd.css'
-import BlogTable from '../BlogTable';
-import AccountsTable from '../AccountsTable';
+import BlogTable from '../table/BlogTable';
+import AccountsTable from '../table/AccountsTable';
 import PrizeCardListFactory from '../PrizeCardListFactory';
 import { connect } from 'dva';
 

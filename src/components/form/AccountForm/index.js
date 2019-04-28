@@ -16,7 +16,7 @@ class AccountForm extends  React.Component {
           this.props.dispatch({
             type: 'accounts/update',
             payload: {
-              ...values,
+              params: values,
               id
             }
           })

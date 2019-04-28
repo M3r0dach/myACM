@@ -1,10 +1,10 @@
 import React from 'react'
-import { Table, Divider, Button } from "antd";
-import ModalFactory from "../ModalFactory";
-import Link from "../Link";
+import { Table, Divider, Button, Popconfirm } from "antd";
+import ModalFactory from "Components/ModalFactory";
+import Link from "Components/Link";
 import 'antd/dist/antd.css'
-import '../../index.css'
-import {ArticleSubmitType} from "../../config";
+import '../../../index.css'
+import { BlogStatus } from "Models/blogs";
 import { connect } from 'dva';
 import { withRouter, routerRedux } from "dva/router";
 const BlogModal = ModalFactory.BlogModal
@@ -38,8 +38,7 @@ class BlogTable extends React.Component {
         this.props.history.replace('/principle/blog/edit/'+id)
     }
     delete = id=>{
-        this.props.dispatch({type:'blogs/remove', payload:id})
-        alert('delete '+id)
+        this.props.dispatch({type:'blogs/delete', payload:id})
     }
     preview = id=>{
         alert('preview '+id)
@@ -54,7 +53,7 @@ class BlogTable extends React.Component {
             },{
                 title: '状态',
                 dataIndex: 'status',
-                render: status=>(status==ArticleSubmitType.Draft?'草稿':'发布')
+                render: status=>(status==BlogStatus.DRAFT?'草稿':'发布')
             },{
                 title: '作者',
                 dataIndex: 'user.name'
@@ -78,9 +77,11 @@ class BlogTable extends React.Component {
                             ()=>this.modify(id)
                             }>修改</span>
                         <Divider type='vertical'/>
-                        <span onClick={
-                            ()=>this.delete(id)
-                            }>删除</span>
+                        <Popconfirm title='确定要删除吗?'
+                            onConfirm={()=>this.delete(id)}
+                            okText='Yes' cancelText='No'>
+                        删除
+                        </Popconfirm>
                         <Divider type='vertical'/>
                         <span onClick={
                             ()=>this.preview(id)

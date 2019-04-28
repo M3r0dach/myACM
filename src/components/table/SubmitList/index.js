@@ -1,10 +1,10 @@
 import { Component } from "react";
-import { OJ_MAP } from "../../models/accounts";
+import { OJ_MAP } from "Models/accounts";
 import { Icon, Table, Modal, Input, Button} from "antd";
-import CodeBlock from "../CodeBlock";
+import CodeBlock from "Components/CodeBlock";
 import { connect } from "dva";
 import { withRouter } from "dva/router";
-import "../../index.css";
+import "../../../index.css";
 
 class SubmitList extends Component{
     state = {

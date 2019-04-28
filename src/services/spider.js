@@ -23,17 +23,17 @@ const fetchAccounts = (page, per, params)=>{
 }
 const createAccount = (params) => {
     console.log('create account')
-    return request(`${API_HOST}/api/v1/accounts`, {
+    return request(`${API_HOST}/api/v1/spiders/accounts`, {
         method: 'POST', body: JSON.stringify(params),
     }, true)
 }
 const updateAccount = (id, params) => {
-    return request(`${API_HOST}/api/v1/accounts/${id}`, {
+    return request(`${API_HOST}/api/v1/spiders/accounts/${id}`, {
         method: 'PUT', body: JSON.stringify(params),
     }, true)
 }
 const deleteAccount = id => {
-    return request(`${API_HOST}/api/v1/accounts/${id}`, {
+    return request(`${API_HOST}/api/v1/spiders/accounts/${id}`, {
         method: 'DELETE'
     })
 }

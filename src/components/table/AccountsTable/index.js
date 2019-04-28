@@ -1,8 +1,8 @@
 import React from 'react'
-import { Table, Divider } from "antd";
-import ModalFactory from "../ModalFactory";
+import { Table, Divider, Popconfirm } from "antd";
+import ModalFactory from "Components/ModalFactory";
 import 'antd/dist/antd.css'
-import "../../index.css";
+import "../../../index.css";
 import { connect } from 'dva';
 
 
@@ -32,7 +32,7 @@ class AccountsTable extends React.Component {
     }
     delete = id=>{
         this.props.dispatch({
-            type:'accounts/remove',
+            type:'accounts/delete',
             payload:id
         })
     }
@@ -68,10 +68,11 @@ class AccountsTable extends React.Component {
                     return <div>
                         <AccountModal account={record}/>
                         <Divider type='vertical'/>
-                        <span style={{color:'blue'}}
-                            onClick={()=>this.delete(id)}
-                            >删除
-                        </span>
+                        <Popconfirm title='确定要删除吗?'
+                            onConfirm={()=>this.delete(id)}
+                            okText='Yes' cancelText='No'>
+                        删除
+                        </Popconfirm>
                     </div>
                 }
             }

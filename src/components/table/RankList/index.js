@@ -3,7 +3,7 @@ import { OJ_MAP } from "Models/accounts";
 import { Table, Alert } from "antd";
 import { connect } from "dva";
 import { withRouter } from "dva/router";
-import '../../index.css'
+import '../../../index.css'
 const originURL = '/train/total'
 const getColumns = () => {
   const columns = [{

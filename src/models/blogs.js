@@ -1,5 +1,5 @@
 import pathToRegexp  from "path-to-regexp";
-import { fetchBlogs, fetchBlog, createBlog, updateBlog } from "../services/article";
+import { fetchBlogs, fetchBlog, createBlog, updateBlog, deleteBlog } from "../services/article";
 import { extractParams } from "../utils/qs";
 import { message } from "antd";
 const emptyBlog = {
@@ -57,6 +57,16 @@ export default {
         },
     },
     effects: {
+        *delete({payload}, {call, put}) {
+            const response = yield call(deleteBlog, payload)
+            if(response.err_code!==1) {
+                message.success('删除成功')
+                yield put({type: 'remove', payload})
+            }else {
+                const err = response.message? response.message:''
+                message.error(`删除失败: ${err}`)
+            }
+        },
         *fetchList({ payload }, { call, put, select }) {
             const per = yield select(state=>state.blogs.per)
             const params = extractParams(payload)
@@ -79,18 +89,18 @@ export default {
                 message.success('添加成功')
                 yield put({ type: 'createSuccess', payload: response.article })
             } else {
-                const err = response.message? `: ${response.message}`:''
-                message.error(`添加失败${err}`)
+                const err = response.message? response.message:''
+                message.error(`添加失败: ${err}`)
             }
         },
         *update({payload}, {put, call}) {
             const response = yield call(updateBlog,payload.id, payload)
             if(response.err_code!==1&&response.article!=null) {
-                message.success('添加成功')
+                message.success('修改成功')
                 yield put({ type: 'updateSuccess', payload: response.article })
             } else {
-                const err = response.message? `: ${response.message}`:''
-                message.error(`添加失败${err}`)
+                const err = response.message? response.message:''
+                message.error(`修改失败: ${err}`)
             }
         }
     },

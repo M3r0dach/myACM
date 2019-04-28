@@ -1,7 +1,7 @@
 import { Layout} from "antd";
 import NavBar from "Components/NavBar";
-import RankList from "Components/RankList";
-import SubmitList from "Components/SubmitList";
+import RankList from "Components/table/RankList";
+import SubmitList from "Components/table/SubmitList";
 import { Switch, Route, Redirect} from "dva/router";
 
 const menu = [

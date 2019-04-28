@@ -23,8 +23,8 @@ export default {
             if(response.err_code!==1&&response.data!=null) {
                 yield put({ type: 'save', payload:response});
             }else {
-                const err = response.message?`: ${response.message}`:''
-                message.error(`获取用户信息失败${err}`)
+                const err = response.message?response.message:''
+                message.error(`获取用户信息失败: ${err}`)
             }
         },
     },

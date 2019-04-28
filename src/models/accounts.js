@@ -1,4 +1,4 @@
-import { fetchAccounts, createAccount } from "../services/spider";
+import { fetchAccounts, createAccount, deleteAccount, updateAccount } from "../services/spider";
 import { extractParams } from "../utils/qs";
 import { message } from "antd";
 export const OJ_MAP = {
@@ -33,13 +33,13 @@ export default {
       const list = state.list.filter(
         e=>e.id!=id
       )
-      return { list }
+      return { ...state, list }
     },
-    update(state, {payload}) {
+    updateSuccess(state, {payload}) {
       const list = state.list.map(
         e=>(e.id==payload.id?{...e, ...payload}:e)
       )
-      return {list}
+      return {...state, list}
     },
     saveParams(state, {payload}) {
       return {
@@ -50,6 +50,26 @@ export default {
   },
 
   effects: {
+    *update({payload}, {call, put}) {
+        const response = yield call(updateAccount, payload.id, payload.params)
+        if(response.err_code!==1) {
+            message.success('修改成功')
+            yield put({type: 'updateSuccess', payload: response.account})
+        }else {
+            const err = response.message? response.message:''
+            message.error(`修改失败: ${err}`)
+        }
+    },
+    *delete({payload}, {call, put}) {
+        const response = yield call(deleteAccount, payload)
+        if(response.err_code!==1) {
+            message.success('删除成功')
+            yield put({type: 'remove', payload})
+        }else {
+            const err = response.message? response.message:''
+            message.error(`删除失败: ${err}`)
+        }
+    },
     *fetchList({ payload }, { call, put, select }) {
       const per = yield select(state=>state.accounts.per)
       const params = extractParams(payload)
@@ -66,8 +86,8 @@ export default {
         message.success('添加成功')
         yield put({ type: 'createSuccess', payload: response.account })
       } else {
-        const err = response.message? `: ${response.message}`:''
-        message.error(`添加失败${err}`)
+        const err = response.message? response.message:''
+        message.error(`添加失败: ${err}`)
       }
     }
   },

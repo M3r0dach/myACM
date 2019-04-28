@@ -1,7 +1,7 @@
-import { notification } from "antd";
+import { notification, message } from "antd";
 import { users} from "../testdata/user";
 import { fetchToken, saveToken, removeToken, getToken } from "../services/auth";
-import { fetchUser } from "../services/user";
+import { fetchUser, updateUser } from "../services/user";
 import JwtDecode from "jwt-decode";
 import pathToRegexp from "path-to-regexp";
 
@@ -39,6 +39,16 @@ export default {
         *logout({payload}, {call, put}) {
             yield removeToken()
             yield put({ type:'remove' })
+        },
+        *update({payload}, {put, call}) {
+            const response = yield call(updateUser,payload.id, payload.params)
+            if(response.err_code!==1&&response.user!=null) {
+                message.success('修改成功')
+                yield put({ type: 'updateSuccess', payload: response.user })
+            } else {
+                const err = response.message? response.message:''
+                message.error(`修改失败: ${err}`)
+            }
         },
         *loadCurrentUser({payload}, {call, put, select}) {
             try {
@@ -98,28 +108,16 @@ export default {
                  isLogin: false,
             };
         },
-        modify(state, {payload}) {
-            var user = {
-                ...state.currentUser,
-                nickname: payload.nickname,
-                gender: payload.gender,
-                description: payload.description,
-                user_info: {
-                    ...state.currentUser.user_info,
-                    email: payload.email,
-                    stu_id: payload.stu_id,
-                    phone: payload.phone,
-                    situation: payload.situation,
-                    major: payload.major,
-                    grade: payload.grade
-                }
-            }
-            console.log('modified')
-            console.log(user)
+        updateSuccess(state, {payload}) {
+            const list = state.list.map(
+                e=>(e.id==payload.id?{...e, ...payload}:e)
+            )
             return {
-                currentUser:user,
-                list: state.list.map(e=>(e.id==user.id?user:e))
+                ...state,
+                currentUser: payload,
+                currentItem: payload,
+                list
             }
-        }
+        },
     }
 }
