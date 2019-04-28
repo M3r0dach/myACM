@@ -1,6 +1,8 @@
 import React from 'react'
 import {Avatar, List, Icon} from "antd";
 import 'antd/dist/antd.css'
+import { connect } from "dva";
+
 const MetaBlock = ({title, value})=>{
     return <div style={{
                 paddingRight:7, marginBottom:5,
@@ -18,11 +20,11 @@ const Title = ({user})=>{
         </div>
 
 }
-const PersonalBar = ({user})=>{
+const PersonalBar = ({user, misc})=>{
     const meta = [
-        {title:'文章', value:user.blog_cnt},
-        {title:'积分', value:user.score},
-        {title:'点赞数', value:user.like_times},
+        {title:'文章', value:misc.article_count},
+        {title:'点赞数', value:misc.like_count},
+        {title:'解题数', value:misc.accept_count},
     ]
     return <div style={{height:120, background:'white'}}>
         <Avatar src={user&&user.avatar.origin}
@@ -43,4 +45,10 @@ const PersonalBar = ({user})=>{
         </List>
     </div>
 }
-export default PersonalBar
+const stateToProps = ({misc, users})=>{
+    return {
+        misc: misc,
+        user: users.currentUser,
+    }
+}
+export default connect(stateToProps)(PersonalBar)

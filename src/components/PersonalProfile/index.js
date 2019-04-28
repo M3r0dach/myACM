@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icon, Card } from "antd";
 import ModalFactory from "../ModalFactory";
+import { connect } from "dva";
 
 const ProfileModal = ModalFactory.ProfileModal
 const PersonalProfile=({user})=>{
@@ -30,4 +31,9 @@ const PersonalProfile=({user})=>{
         </Card>
     </div>
 }
-export default PersonalProfile
+const stateToProps = ({users})=>{
+    return {
+        user: users.currentUser,
+    }
+}
+export default connect(stateToProps)(PersonalProfile)
