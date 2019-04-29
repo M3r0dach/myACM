@@ -1,5 +1,6 @@
 import React from "react";
 import { PageHeader } from "antd";
+import Link from "../Link";
 import styles from './index.css'
 
 class TagSider extends React.Component{
@@ -8,12 +9,20 @@ class TagSider extends React.Component{
         return <div className={styles.tagSider}>
             <PageHeader title='热门标签'/>
             <table>
-                {tags.map((tag,idx)=>
-                        <tr>
-                            <td>{idx+1+'. '+tag[0]}</td>
-                            <td className={styles.tagRight}>{tag[1]}</td>
-                        </tr>
-                    )}
+                {tags.map((tag,idx)=> (
+                    <tr key={idx}>
+                        <td>
+                            <Link to='/blog/index' query={{
+                                searchMode: 'tag',
+                                searchText: tag[0]
+                                }}>
+                                {idx+1+'. '+tag[0]}
+                            </Link>
+                        </td>
+                        <td className={styles.tagRight}>{tag[1]}</td>
+                    </tr>
+                    )
+                )}
             </table>
         </div>
     }

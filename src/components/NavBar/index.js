@@ -5,9 +5,9 @@ import Link from "../Link";
 const NavBar = ({items, theme='dark', mode='vertical',...rest})=>{
     const menus = items.map(
         m=> <Menu.Item key={m.key}>
-            {m.to?<Link to={m.to}>
+            <Link {...m}>
                     {m.title}
-                   </Link>:m.content}
+            </Link>
         </Menu.Item>
     )
     return  <Menu theme={theme}

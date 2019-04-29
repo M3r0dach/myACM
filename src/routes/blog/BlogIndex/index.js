@@ -2,24 +2,42 @@ import React from "react";
 import {List, Input, Radio, Layout, Select} from "antd";
 import BlogItem from "Components/BlogItem";
 import {connect} from "dva"
-import TagSider from "../../../components/TagSider";
+import TagSider from "Components/TagSider";
+import queryString from "querystring";
 class BlogIndex extends React.Component {
   state = {
     sortField: 'created_at',
     searchText: '',
     searchMode: 'total',
   }
+  static getDerivedStateFromProps(nextProps, preState) {
+    const search = nextProps.history.location.search
+    console.log('update blog props', search)
+    if(!search) return null
+    const query = queryString.parse(search.substr(1))
+    console.log('query', query)
+    return {
+      ...preState,
+      ...query,
+    }
+  }
   handleLike = (blog) => {
     console.log(blog.id)
   }
   handleOption = (e) => {
-    this.setState({sortField: e.target.value})
+    this.props.history.replace({
+      pathname: this.props.history.location.pathname,
+      search: `?${queryString.stringify({...this.state, sortField: e.target.value})}`
+    })
   }
   handleSelect = (value) => {
-    this.setState({searchMode: value})
+    this.props.history.replace({
+      pathname: this.props.history.location.pathname,
+      search: `?${queryString.stringify({...this.state, searchMode: value})}`
+    })
   }
   renderSelect = ()=>{
-    return <Select defaultValue='total' onChange={this.handleSelect}>
+    return <Select value={this.state.searchMode} onChange={this.handleSelect}>
       <Select.Option value='total'>全部</Select.Option>
       <Select.Option value='title'>标题</Select.Option>
       <Select.Option value='author'>作者</Select.Option>
@@ -29,7 +47,7 @@ class BlogIndex extends React.Component {
   }
   renderOption = () => {
     return <Radio.Group
-             defaultValue={this.state.sortField}
+             value={this.state.sortField}
              onChange={this.handleOption}
            >
       <Radio.Button value='created_at'>
@@ -57,7 +75,10 @@ class BlogIndex extends React.Component {
       return <TagSider tags={tags}/>
   }
   onSearch = (e) => {
-    this.setState({searchText: e.target.value})
+    this.props.history.replace({
+      pathname: this.props.history.location.pathname,
+      search: `?${queryString.stringify({...this.state, searchText: e.target.value})}`
+    })
   }
   onFilter = (blog) => {
     const filterTitle = searchText => blog.title.includes(searchText)
@@ -80,13 +101,14 @@ class BlogIndex extends React.Component {
     return x[field] <= y[field] ? 1 : -1
   }
   render() {
+    console.log('blog state', this.state)
     const {blogs=[]} = this.props
     console.log(this.props.blogs)
     let data = blogs.filter(this.onFilter).sort(this.onSorter)
     console.log(data)
     return (
       <div>
-      <Input.Search style={{width:'80%', marginBottom:40}} onPressEnter={this.onSearch}
+      <Input.Search defaultValue={this.state.searchText} style={{width:'80%', marginBottom:40}} onPressEnter={this.onSearch}
         addonBefore={this.renderSelect()} addonAfter={this.renderOption()}/>
       <Layout>
         <Layout.Content>

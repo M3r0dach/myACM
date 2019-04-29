@@ -12,7 +12,7 @@ const menu = [
     {key: 2, title:'题解', to:'/blog'},
     {key: 3, title:'成就', to:'/achievement'},
     {key: 4, title:'我的主页', to:'/principle'},
-    {key: 5, content:<a href='http://wiki.duxy.me' target='_black'>WIKI</a>},
+    {key: 5, title: 'WIKI', to:'http://wiki.duxy.me', target:'_black'},
 ]
 class Header extends Component{
     renderDropDownMenu = ()=>{
