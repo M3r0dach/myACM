@@ -1,13 +1,13 @@
 import React from "react";
-import { Form, Input, Button, Breadcrumb} from "antd";
+import { Form, Input, Button} from "antd";
 import "antd/dist/antd.css"
 import MarkdownEditor from "../../MarkdownEditor";
 import TagInput from "../../TagInput";
-import { ArticleSubmitType } from "../../../config";
+import { BlogStatus} from "Models/blogs";
 
 class BlogForm extends React.Component{
   state = {
-    status: ArticleSubmitType.Publish//发布的类型
+    status: BlogStatus.PUBLISH//发布的类型
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -67,13 +67,13 @@ class BlogForm extends React.Component{
             }     
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            <Button onClick={()=>this.setState({status: ArticleSubmitType.Publish})}
+            <Button onClick={()=>this.setState({status: BlogStatus.PUBLISH})}
                 type="primary"
                 htmlType="submit"
             >
             发布
             </Button>
-            <Button onClick={()=>this.setState({status: ArticleSubmitType.Draft})}
+            <Button onClick={()=>this.setState({status: BlogStatus.DRAFT})}
                 htmlType='submit'
                 style={{marginLeft:10}}
             >

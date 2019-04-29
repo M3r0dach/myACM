@@ -1,9 +1,6 @@
 import { fetchSubmits } from "../services/spider";
+import { extractParams } from "../utils/qs";
 
-function extractParams(query) {
-    const {current_page=1} = query||{}
-    return {current_page: parseInt(current_page, 10)}
-}
 
 export default {
 
@@ -33,7 +30,7 @@ export default {
       const params = extractParams(payload)
       const per = yield select(state=>state.submits.per)
       const response = yield call(fetchSubmits,
-          params.current_page, per)
+          params.current_page, per, params)
       yield put({type: 'saveList', payload: response})
     }
   },
@@ -42,9 +39,8 @@ export default {
     setupSubscriber({dispatch, history}) {
       history.listen(({pathname, state})=>{
         if(pathname==='/train/submits') {
-          console.log('trigger refresh submits')
-          console.log(state)
-          dispatch({type: 'fetchList', payload:state})
+          console.log('trigger refresh submits', state)
+          dispatch({type: 'fetchList', payload:state||{}})
         }
       })
     }

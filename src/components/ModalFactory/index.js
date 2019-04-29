@@ -3,6 +3,7 @@ import LoginForm from "../form/LoginForm";
 import ProfileForm from "../form/ProfileForm";
 import AccountForm from "../form/AccountForm";
 import BlogForm from "../form/BlogForm";
+import CodeBlock from "../CodeBlock";
 
 const ModalFactory = {
     LoginModal() {
@@ -15,6 +16,18 @@ const ModalFactory = {
         return <BaseModal hint='编辑'
                     title='修改用户信息'
                     form={ProfileForm}
+                />
+    },
+    CodeModal({hint='代码', code=null}) {
+        return <BaseModal hint={hint}
+                    title='查看代码'
+                    form={
+                        props=>(
+                            <CodeBlock {...props}
+                                code={code}
+                            />
+                        )
+                    }
                 />
     },
     AccountModal({hint='编辑', type, account={}}) {

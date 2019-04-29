@@ -55,6 +55,7 @@ function toFormData(params) {
             data.append(key, params[key])
         }
     })
+    return data
 }
 
 export {encodeParams, withParams, extractParams, toFormData}

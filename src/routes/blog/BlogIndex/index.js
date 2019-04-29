@@ -80,9 +80,9 @@ class BlogIndex extends React.Component {
     return x[field] <= y[field] ? 1 : -1
   }
   render() {
-    console.log(this.state)
+    const {blogs=[]} = this.props
     console.log(this.props.blogs)
-    let data = this.props.blogs.filter(this.onFilter).sort(this.onSorter)
+    let data = blogs.filter(this.onFilter).sort(this.onSorter)
     console.log(data)
     return (
       <div>

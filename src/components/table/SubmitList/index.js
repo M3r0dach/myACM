@@ -1,15 +1,15 @@
 import { Component } from "react";
 import { OJ_MAP } from "Models/accounts";
 import { Icon, Table, Modal, Input, Button} from "antd";
-import CodeBlock from "Components/CodeBlock";
+import ModalFactory from "../../ModalFactory";
 import { connect } from "dva";
 import { withRouter } from "dva/router";
 import "../../../index.css";
 
+const CodeModal = ModalFactory.CodeModal
+
 class SubmitList extends Component{
     state = {
-        showCode: false,
-        activeRecord: {},
         filteredInfo: {},
         sorteredInfo: {}
     }
@@ -21,29 +21,28 @@ class SubmitList extends Component{
           <Input
             placeholder={`Search ${dataIndex}`}
             value={selectedKeys[0]}
+            style={{width:188, marginBottom:8, display:'block'}}
             onChange={e=>{
               setSelectedKeys([e.target.value])
               console.log('selectedKeys')
               console.log(selectedKeys)
             }}
             onPressEnter={()=>this.handleSearch(selectedKeys, confirm)}
-            style={{width:188, marginBottom:8, display:'block'}}
           />
           <Button
             type='primary'
-            onClick={()=>this.handleSearch(selectedKeys, confirm)}
             icon='search'
             size='small'
             style={{width:90, marginRight:8}}
+            onClick={()=>this.handleSearch(selectedKeys, confirm)}
           >Search</Button>
           <Button
-            onClick={()=>this.handleReset(clearFilters)}
             size='small' style={{width:90}}
+            onClick={()=>this.handleReset(clearFilters)}
           >Reset</Button>
         </div>
       ),
       filterIcon: filtered => <Icon type='search' style={{color: filtered?'#1890ff':undefined}}/>,
-      onFilter: (value, record)=>record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
     })
     handleSearch = (selectedKeys, confirm) => {
       confirm()
@@ -51,7 +50,7 @@ class SubmitList extends Component{
     handleReset = (clearFilters) => {
       clearFilters();
     }
-    getColumns=(sorteredInfo, filteredInfo, operation)=>{
+    getColumns=(sorteredInfo, filteredInfo)=>{
       let cols = [ {
         title: '用户名',
         dataIndex:'user_name',
@@ -65,8 +64,6 @@ class SubmitList extends Component{
         filters: Object.keys(OJ_MAP).map(
             oj => ({text:OJ_MAP[oj], value:oj})
         ),
-        filteredValue: filteredInfo.oj_name||[],
-        onFilter: (value, record)=>record.oj_name.includes(value),
         render: (oj, record)=>(
             <div>
                 {OJ_MAP[oj]}<br/>
@@ -81,9 +78,7 @@ class SubmitList extends Component{
         title: '语言',
         dataIndex: 'lang',
         render: (value, record) => (
-          <span style={{color:'blue'}} onClick={()=>operation.onShowCode(record)}>
-            {value}
-          </span>
+          <CodeModal hint={value} code={record.code}/>
         )
     },{
         title: '结果',
@@ -91,9 +86,8 @@ class SubmitList extends Component{
         filters: [
           {text: 'OK', value:'ok'},
           {text: 'AC', value:'ac'},
+          {text: 'Accepted', value:'accepted'},
         ],
-        filteredValue: filteredInfo.result||[],
-        onFilter: (value, record)=>(record.result.toLowerCase().includes(value)),
         render: (value, record)=>{
           var fontColor = value[0]==='A'?'green':value[0]==='W'?'red':'blue'
           return <span style={{color:fontColor}}>{value}</span>
@@ -118,34 +112,24 @@ class SubmitList extends Component{
     }]
     return cols
 }
-    onShowCode = record =>{
-        this.setState({
-            showCode:true,
-            activeRecord:record
-        })
-        console.log(this.state)
-    }
     handleChange = (pagination,filters, sorter)=>{
-        this.setState({filteredInfo:filters,sorteredInfo:sorter})
+        console.log('sorter', sorter)
+        let search
+        if('user_name' in filters) {
+          search = filters['user_name'][0]
+          delete filters.user_name
+        }
         const params = {
-          current_page: pagination.current
+          current_page: pagination.current,
+          search,
+          filters: JSON.stringify(filters),
+          sortOrder: sorter.order||'id',
+          sortField: sorter.field||'ascend',
         }
         this.props.history.replace({
           pathname:this.props.history.location.pathname,
           state: params
         })
-        //this.setState({sortedInfo:sorter})
-    }
-    renderCodeModal = ()=>{
-      const onClick = ()=>{
-        this.setState({showCode:false})
-      }
-      const code = this.state.activeRecord.code||null
-      return <Modal title='查看代码'
-              visible={this.state.showCode}
-              footer={null} onCancel={onClick}>
-        <CodeBlock code={code}/>
-      </Modal>
     }
     render() {
         const {sorteredInfo, filteredInfo} = this.state
@@ -156,11 +140,10 @@ class SubmitList extends Component{
                 rowClassName='row'
                 size='small'
                 loading={this.props.loading}
-                columns={this.getColumns(sorteredInfo, filteredInfo, {onShowCode:this.onShowCode})}
+                columns={this.getColumns(sorteredInfo, filteredInfo)}
                 onChange={this.handleChange}
                 pagination={this.props.pagination}
             />
-            {this.renderCodeModal()}
           </div>
         )
     }

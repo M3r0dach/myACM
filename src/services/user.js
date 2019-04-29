@@ -1,5 +1,6 @@
 import request from "../utils/request";
 import { API_HOST } from "../config";
+import { toFormData } from "../utils/qs";
 
 
 const fetchUsers = ()=>{
@@ -11,10 +12,8 @@ const fetchUser = id=>{
 }
 
 const updateUser = (id, params)=>{
-  const data = new FormData();
-  Object.keys(params).forEach(key => { data.append(key, params[key]); });
   return request(`${API_HOST}/api/v1/users/${id}`, {
-    method: 'POST', body: data,
+    method: 'POST', body: toFormData(params),
   });
 }
 

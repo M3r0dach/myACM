@@ -9,8 +9,3 @@ export const OJ_MAP = {
   cf: 'Codeforces',
   bc: 'Bestcoder'
 };
-
-export const ArticleSubmitType = {
-  Draft: 1,
-  Publish: 2,
-}
