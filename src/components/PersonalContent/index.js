@@ -11,7 +11,8 @@ import { NavLink } from 'dva/router';
 
 class PersonalContent extends React.Component{
     render() {
-        const {myPrizes} = this.props
+        const {myPrizes, guest} = this.props
+        console.log('guest', guest)
         return <div>
             <Tabs defaultActiveKey='blogs'>
                 <Tabs.TabPane key='blogs' tab='文章'>
@@ -20,9 +21,13 @@ class PersonalContent extends React.Component{
                 <Tabs.TabPane key='achievements' tab='成就'>
                     {PrizeCardListFactory.createCompleted(myPrizes)}
                 </Tabs.TabPane>
-                <Tabs.TabPane key='accounts' tab='账号'>
-                    <AccountsTable/>
-                </Tabs.TabPane>
+                {
+                    guest?null:(
+                        <Tabs.TabPane key='accounts' tab='账号'>
+                            <AccountsTable/>
+                        </Tabs.TabPane>
+                    )
+                }
                 <Tabs.TabPane key='calendar' tab='统计'>
                     <Calendar/>
                 </Tabs.TabPane>
@@ -30,8 +35,9 @@ class PersonalContent extends React.Component{
         </div>
     }
 }
-const stateToProps = ({achievements})=>{
+const stateToProps = ({achievements, users})=>{
     return {
+        guest: users.displayUser.id!=users.currentUser.id,
         myPrizes:achievements.myPrizes,
     }
 }

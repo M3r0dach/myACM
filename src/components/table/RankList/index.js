@@ -3,6 +3,7 @@ import { OJ_MAP } from "Models/accounts";
 import { Table, Alert } from "antd";
 import { connect } from "dva";
 import { withRouter } from "dva/router";
+import UserLink from "Components/UserLink";
 import '../../../index.css'
 const originURL = '/train/total'
 const getColumns = () => {
@@ -15,7 +16,7 @@ const getColumns = () => {
     dataIndex: 'user_name',
     width: '8%',
     className: 'text-center',
-    render: name => <b>{name}</b>
+    render: (name,record) => (<UserLink user_id={record.user_id} user_name={record.user_name}/>)
   }];
   const accountsColumns = Object.keys(OJ_MAP).map(ojKey => ({
     title: OJ_MAP[ojKey],

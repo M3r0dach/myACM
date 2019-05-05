@@ -21,7 +21,7 @@ class Calendar extends React.Component {
                     filters,
                     sort_field: 'submitted_at',
                     sort_order: 'descend',
-                    per: 300,
+                    per: 400,
                 },
             })
         }
@@ -53,7 +53,13 @@ class Calendar extends React.Component {
                     color: '#000'
                 }
             },
-            tooltip: {},
+            tooltip: {
+                formatter: function (param) {
+                    console.log(param.value)
+                    return (`日期：${param.value[0]}<br/>
+                            解题：${param.value[1]}`)
+                }
+            },
             calendar: {
                 top: 120,
                 cellSize: ['auto', 13],
@@ -79,14 +85,16 @@ class Calendar extends React.Component {
                     option={this.getOption(
                         this.formatData(this.props.submits)
                     )}
+                    showLoading={this.props.loading}
                     style={{width:"95%", height: 500}}
                 />
     }
 }
-const stateToProps = ({users,submits})=>{
+const stateToProps = ({users,submits, loading})=>{
     return {
         submits: submits.list,
         user: users.displayUser,
+        loading:loading.models.submits,
     }
 }
 export default connect(stateToProps)(Calendar);

@@ -94,15 +94,22 @@ class BlogTable extends React.Component {
                 }
             }
         ] 
+        if(this.props.guest) return columns
         return [...columns,...extra]
     }
-    render() {
-        return <div>
+    renderButton() {
+        if(this.props.guest) return null
+        return (
             <Button type='primary'>
                 <Link to='/principle/blog/create'>
                     发表文章
                 </Link>
             </Button>
+        )
+    }
+    render() {
+        return <div>
+            {this.renderButton()}
             <Table columns={this.getColumns()}
                 dataSource={this.props.blogs}
                 size='small'
@@ -116,6 +123,7 @@ class BlogTable extends React.Component {
 const stateToProps = ({blogs, users, loading}) => ({
     blogs: blogs.list,
     user: users.displayUser,
+    guest: users.displayUser.id!=users.currentUser.id,
     loading: loading.models.blogs,
 })
 export default withRouter(connect(stateToProps)(BlogTable))

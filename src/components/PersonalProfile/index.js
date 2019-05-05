@@ -4,9 +4,9 @@ import ModalFactory from "../ModalFactory";
 import { connect } from "dva";
 
 const ProfileModal = ModalFactory.ProfileModal
-const PersonalProfile=({user})=>{
+const PersonalProfile=({user, guest})=>{
     return <div>
-        <Card title='个人简介' extra={[<ProfileModal/>]}>
+        <Card title='个人简介' extra={guest?[]:[<ProfileModal/>]}>
             <p>{user.description}</p>
             <p><Icon type='environment'/>:
                 {user.user_info.school+" "+user.user_info.college}
@@ -33,6 +33,7 @@ const PersonalProfile=({user})=>{
 }
 const stateToProps = ({users})=>{
     return {
+        guest: users.displayUser.id!=users.currentUser.id,
         user: users.displayUser,
     }
 }
