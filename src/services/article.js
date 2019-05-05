@@ -10,15 +10,6 @@ const fetchBlogs = (page, per, params={})=>{
 const fetchBlog = (id)=>{
     return request(API_HOST+`/api/v1/articles/${id}`)
 }
-const fetchComments = (id)=>{
-    return request(API_HOST+`/api/v1/articles/${id}/comments`)
-}
-const createComment = (id,params)=>{
-    console.log('create comment')
-    return request(`${API_HOST}/api/v1/articles/${id}/comments`, {
-        method: 'POST', body: JSON.stringify(params)
-    }, true)
-}
 const createBlog = (params) => {
     console.log('create blog')
     return request(`${API_HOST}/api/v1/articles`, {
@@ -31,8 +22,25 @@ const updateBlog = (id, params) => {
         method: 'PUT', body: JSON.stringify(params),
     }, true)
 }
+const likeBlog = (id) =>{
+    console.log('like it')
+    return request(`${API_HOST}/api/v1/articles/${id}/like`, {
+        method: 'PUT'
+    })
+}
 const deleteBlog = id => {
     console.log('delete blog')
     return request(API_HOST+`/api/v1/articles/${id}`, {method: 'DELETE'})
 }
-export {fetchBlogs, fetchBlog, createBlog, updateBlog, deleteBlog, fetchComments, createComment}
+const fetchComments = (id)=>{
+    return request(API_HOST+`/api/v1/articles/${id}/comments`)
+}
+const createComment = (id,params)=>{
+    console.log('create comment')
+    return request(`${API_HOST}/api/v1/articles/${id}/comments`, {
+        method: 'POST', body: JSON.stringify(params)
+    }, true)
+}
+
+
+export {fetchBlogs, fetchBlog, createBlog, updateBlog, likeBlog, deleteBlog, fetchComments, createComment}

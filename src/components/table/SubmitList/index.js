@@ -123,8 +123,8 @@ class SubmitList extends Component{
           current_page: pagination.current,
           search,
           filters: JSON.stringify(filters),
-          sort_order: sorter.order||'id',
-          sort_field: sorter.field||'ascend',
+          sort_field: sorter.field||'id',
+          sort_order: sorter.order||'ascend',
         }
         this.props.history.replace({
           pathname:this.props.history.location.pathname,

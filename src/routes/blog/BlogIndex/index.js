@@ -19,6 +19,7 @@ class BlogIndex extends React.Component {
   }
 
   handleLike = (blog) => {
+    this.props.dispatch({type:'blogs/like', payload: blog.id})
     console.log(blog.id)
   }
   handleOption = (e) => {

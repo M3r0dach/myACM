@@ -4,6 +4,7 @@ import { connect } from "dva";
 import styles from './index.less'
 import ModalFactory from "../ModalFactory";
 import NavBar from "../NavBar";
+import icpc_logo from "../../assets/icpc.png";
 
 const LoginModal = ModalFactory.LoginModal
 
@@ -36,9 +37,12 @@ class Header extends Component{
         const {user} = this.props
         return (
           <Row type='flex' align='middle' justify='space-between' className={styles.header}>
-            <Col span={4} align='start'>CUIT ACM 校队训练</Col>
+            <Col span={6} align='start'>
+                <img src={icpc_logo} alt='icpc_log' style={{height:100}}/>
+                <b>CUIT ACM 校队训练</b>
+            </Col>
             <Col>{this.renderNavbar()}</Col>
-            <Col span={4} align='end'>
+            <Col span={6} align='end'>
                 <Dropdown overlay={this.renderDropDownMenu}>
                     <span className="ant-dropdown-link" href="#" style={{cursor:'pointer'}}>
                     <Avatar src={user.avatar.origin} alt='aaa'/> {user&&user.nickname}<Icon type="down" />

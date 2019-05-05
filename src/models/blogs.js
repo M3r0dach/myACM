@@ -1,6 +1,6 @@
 import pathToRegexp  from "path-to-regexp";
-import { fetchBlogs, fetchBlog, createBlog, updateBlog, deleteBlog } from "../services/article";
-import { extractParams } from "../utils/qs";
+import { fetchBlogs, fetchBlog, createBlog, updateBlog, deleteBlog, likeBlog } from "Services/article";
+import { extractParams } from "Utils/qs";
 import { message } from "antd";
 const emptyBlog = {
     tags: [],
@@ -65,6 +65,12 @@ export default {
             }else {
                 const err = response.message? response.message:''
                 message.error(`删除失败: ${err}`)
+            }
+        },
+        *like({payload}, {call, put}) {
+            const response = yield call(likeBlog, payload)
+            if(response.err_code!==1) {
+                yield put({type: 'updateSuccess', payload: response.article})
             }
         },
         *fetchList({ payload }, { call, put, select }) {

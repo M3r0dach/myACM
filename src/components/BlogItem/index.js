@@ -20,10 +20,10 @@ const BlogItem = ({blog, onLike})=>{
                         created_at={blog.created_at}/>
                 ]}
             >
-            <List.Item.Meta
-                title={<Link to={href}><b>{blog.title}</b></Link>}
-                description={blog.summary}
-            />
+                <List.Item.Meta
+                    title={<Link to={href}><b>{blog.title}</b></Link>}
+                    description={blog.summary}
+                />
             </List.Item>
     )
 }
