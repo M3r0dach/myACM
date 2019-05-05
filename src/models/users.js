@@ -1,5 +1,4 @@
 import { notification, message } from "antd";
-import { users} from "../testdata/user";
 import { fetchToken, saveToken, removeToken, getToken } from "../services/auth";
 import { fetchUser, updateUser } from "../services/user";
 import JwtDecode from "jwt-decode";
@@ -17,7 +16,7 @@ export default {
     state: {
         currentUser: emptyUser,
         displayUser: emptyUser,
-        list: users,
+        list: [],
         isLogin: false,
         page: 1,
         per: 15,
@@ -118,7 +117,7 @@ export default {
                     description:error,
                 })
             }
-        } 
+        }
     },
     reducers: {
         save(state, {payload}) {

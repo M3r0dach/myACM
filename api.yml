@@ -8,28 +8,25 @@ Rails.application.routes.draw do
       post    '/auth/register',               to: 'auth#register'
 
       # users
-#      get     '/users',                       to: 'users#index'
-#      get     '/users/:id',                   to: 'users#show'
-      post    '/users',                       to: 'users#create'
-      post    '/users/:id',                   to: 'users#update'
-      delete  '/users/:id',                   to: 'users#destroy'
+##      get     '/users/:id',                   to: 'users#show'
+##      post    '/users/:id',                   to: 'users#update'
 
       # articles
 ##      get     '/articles',                    to: 'articles#index'
 ##      get     '/articles/:id',                to: 'articles#show'
-      post    '/articles',                    to: 'articles#create'
-      put     '/articles/:id',                to: 'articles#update'
-      delete  '/articles/:id',                to: 'articles#destroy'
+##      post    '/articles',                    to: 'articles#create'
+##      put     '/articles/:id',                to: 'articles#update'
+##      delete  '/articles/:id',                to: 'articles#destroy'
       put     '/articles/:id/like',           to: 'articles#like'
 ##      get     '/articles/:id/comments',       to: 'articles#comments'
-      post    '/articles/:id/comments',       to: 'articles#create_comment'
+##      post    '/articles/:id/comments',       to: 'articles#create_comment'
 
 
       # spiders
 ##      get     '/spiders/accounts',            to: 'spiders#accounts'
-      post    '/spiders/accounts',            to: 'spiders#create_account'
-      put     '/spiders/accounts/:id',        to: 'spiders#update_account'
-      delete  '/spiders/accounts/:id',        to: 'spiders#delete_account'
+##      post    '/spiders/accounts',            to: 'spiders#create_account'
+##      put     '/spiders/accounts/:id',        to: 'spiders#update_account'
+##      delete  '/spiders/accounts/:id',        to: 'spiders#delete_account'
 ##      get     '/spiders/submits',             to: 'spiders#submits'
 ##      get     '/spiders/rank_list',           to: 'spiders#rank_list'
 
@@ -39,8 +36,12 @@ Rails.application.routes.draw do
 
 
       # misc
-      get     '/misc/statistic',              to: 'misc#statistic'
+##      get     '/misc/statistic',              to: 'misc#statistic'
 
+      # users
+#not      post    '/users',                       to: 'users#create'
+#not      get     '/users',                       to: 'users#index'
+#not      delete  '/users/:id',                   to: 'users#destroy'
       # resources
 #not      get     '/resources',                   to: 'resources#index'
 #not      get     '/resources/:id',               to: 'resources#show'

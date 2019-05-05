@@ -8,10 +8,16 @@ const fetchBlogs = (page, per, params={})=>{
 }
 
 const fetchBlog = (id)=>{
-    return request(API_HOST+`/api/v1/articles/${id}`, { })
+    return request(API_HOST+`/api/v1/articles/${id}`)
 }
 const fetchComments = (id)=>{
-    return request(API_HOST+`/api/v1/articles/${id}/comments`, { })
+    return request(API_HOST+`/api/v1/articles/${id}/comments`)
+}
+const createComment = (id,params)=>{
+    console.log('create comment')
+    return request(`${API_HOST}/api/v1/articles/${id}/comments`, {
+        method: 'POST', body: JSON.stringify(params)
+    }, true)
 }
 const createBlog = (params) => {
     console.log('create blog')
@@ -29,4 +35,4 @@ const deleteBlog = id => {
     console.log('delete blog')
     return request(API_HOST+`/api/v1/articles/${id}`, {method: 'DELETE'})
 }
-export {fetchBlogs, fetchBlog, fetchComments, createBlog, updateBlog, deleteBlog}
+export {fetchBlogs, fetchBlog, createBlog, updateBlog, deleteBlog, fetchComments, createComment}

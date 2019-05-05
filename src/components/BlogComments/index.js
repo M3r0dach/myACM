@@ -13,6 +13,12 @@ class BlogComments extends React.Component {
         replyTarget:-1,
         currentBlog: this.props.blog
     }
+    static getDerivedStateFromProps(nextProps, preState) {
+        if(nextProps.blog!=preState.currentBlog) {
+            return {currentBlog: nextProps.blog}
+        }
+        return null
+    }
     onTypingComment = (e, valueKey)=>{
         this.setState({[valueKey]:e.target.value})
     }
@@ -24,7 +30,16 @@ class BlogComments extends React.Component {
                 commentValue: '',
                 replyValue: '',
             })
-        this.props.dispatch({type:'comments/add', payload:{value, user, blogID, target}})
+        this.props.dispatch({
+            type:'comments/create', 
+            payload:{
+                id: blogID,
+                params: {
+                    description: value,
+                    parent_id: target==-1?null:target
+                }
+            }
+        })
     }
     renderEditor = ( valueKey, target=-1)=>{
         return <Editor value={this.state[valueKey]}
@@ -76,7 +91,7 @@ class BlogComments extends React.Component {
     }
 }
 const stateToProps = ({comments, users, blogs})=>{
-    console.log(comments)
+    console.log('blogs',blogs)
     return {
         comments: comments.list,
         currentUser: users.currentUser,

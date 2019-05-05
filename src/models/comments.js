@@ -1,26 +1,31 @@
-import { createComment } from "../utils/comments";
-import { comments } from "Testdata/comments";
-import { fetchComments } from "../services/article";
+import { fetchComments, createComment } from "../services/article";
 import pathToRegexp from "path-to-regexp";
+import { message } from "antd";
 export default {
     namespace: 'comments',
     state: {
         list: [] 
     },
     reducers: {
-        add(state, {payload}) {
-            const {value, user, blogID, target} = payload
-            const id = 1+state.list.map(c=>c.id).reduce((x,y)=>x>y?x:y)
-            const targetComment = state.filter(c=>c.id==target)[0]
-            var comment = createComment(id, value, user, blogID, targetComment)
-            console.log(comment)
-            return state.concat(comment)
+        createSuccess(state, {payload}) {
+            return {...state, list: [...state.list, payload]}
         },
         saveList(state, {payload}) {
             return {...state, list: payload.items}
         },
     },
     effects: {
+        *create({payload}, {call, put, select}) {
+            console.log('create comment', payload)
+            const response = yield call(createComment,payload.id,payload.params)
+            if(response.err_code!==1&&response.comment!=null) {
+                message.success('添加成功')
+                yield put({ type: 'createSuccess', payload: response.comment })
+            } else {
+                const err = response.message? response.message:''
+                message.error(`添加失败: ${err}`)
+            }
+        },
         *fetchList({ payload:id }, { call, put }) {
             const response = yield call(fetchComments, id)
             yield put({type:'saveList', payload:response})
