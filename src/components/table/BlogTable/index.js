@@ -115,7 +115,7 @@ class BlogTable extends React.Component {
 
 const stateToProps = ({blogs, users, loading}) => ({
     blogs: blogs.list,
-    user: users.currentUser,
+    user: users.displayUser,
     loading: loading.models.blogs,
 })
 export default withRouter(connect(stateToProps)(BlogTable))

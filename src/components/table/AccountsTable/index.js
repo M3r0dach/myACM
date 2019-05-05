@@ -94,7 +94,7 @@ class AccountsTable extends React.Component {
 }
 const stateToProps = ({accounts, users, loading})=>({
         accounts: accounts.list,
-        user: users.currentUser,
+        user: users.displayUser,
         loading: loading.models.accounts,
     })
 export default connect(stateToProps)(AccountsTable)

@@ -33,7 +33,7 @@ const PersonalProfile=({user})=>{
 }
 const stateToProps = ({users})=>{
     return {
-        user: users.currentUser,
+        user: users.displayUser,
     }
 }
 export default connect(stateToProps)(PersonalProfile)

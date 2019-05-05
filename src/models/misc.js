@@ -1,5 +1,6 @@
 import { fetchStatistic } from "../services/misc";
 import { message } from "antd";
+import pathToRegexp from "path-to-regexp";
 
 export default {
     namespace: 'misc',
@@ -11,8 +12,9 @@ export default {
     subscriptions: {
         setup({ dispatch, history }) {
             history.listen(({pathname})=>{
-                if(pathname==='/principle/index') {
-                    dispatch({type:'fetchMisc'})
+                const match = pathToRegexp('/principle/:id').exec(pathname)
+                if(match) {
+                    dispatch({type:'fetchMisc', payload: match[1]})
                 }
             })
        },

@@ -5,6 +5,8 @@ import BlogTable from '../table/BlogTable';
 import AccountsTable from '../table/AccountsTable';
 import PrizeCardListFactory from '../PrizeCardListFactory';
 import { connect } from 'dva';
+import Calendar from '../Calendar';
+import { NavLink } from 'dva/router';
 
 
 class PersonalContent extends React.Component{
@@ -20,6 +22,9 @@ class PersonalContent extends React.Component{
                 </Tabs.TabPane>
                 <Tabs.TabPane key='accounts' tab='账号'>
                     <AccountsTable/>
+                </Tabs.TabPane>
+                <Tabs.TabPane key='calendar' tab='统计'>
+                    <Calendar/>
                 </Tabs.TabPane>
             </Tabs>
         </div>

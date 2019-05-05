@@ -5,16 +5,16 @@ import BlogEdit from 'Components/BlogEdit';
 
 const PrincipleLayout = ({match})=>{
     return <Switch>
-        <Route path={`${match.path}/index`}
-            component={PrincipleIndex}
-        />
         <Route path={`${match.path}/blog/create`}
             component={BlogEdit}
         />
         <Route path={`${match.path}/blog/edit/:id`}
             component={BlogEdit}
         />
-        <Redirect to={`${match.path}/index`}/>
+        <Route path={`${match.path}/:id`}
+            component={PrincipleIndex}
+        />
+        <Redirect to='/principle/index'/>
     </Switch>
 }
 export default PrincipleLayout

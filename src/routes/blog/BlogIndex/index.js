@@ -6,35 +6,53 @@ import TagSider from "Components/TagSider";
 import queryString from "querystring";
 class BlogIndex extends React.Component {
   state = {
-    sortField: 'created_at',
+    sort_field: 'created_at',
     searchText: '',
     searchMode: 'total',
+    blogs: []
   }
-  static getDerivedStateFromProps(nextProps, preState) {
+  componentWillReceiveProps(nextProps) {
+    console.log('Component WILL RECEIVE PROPS!')
     const search = nextProps.history.location.search
-    console.log('update blog props', search)
-    if(!search) return null
-    const query = queryString.parse(search.substr(1))
-    console.log('query', query)
-    return {
-      ...preState,
-      ...query,
-    }
+    const query = search?queryString.parse(search.substr(1)):{}
+    this.setState({...query, blogs: nextProps.blogs||[]})
   }
+
   handleLike = (blog) => {
     console.log(blog.id)
   }
   handleOption = (e) => {
     this.props.history.replace({
       pathname: this.props.history.location.pathname,
-      search: `?${queryString.stringify({...this.state, sortField: e.target.value})}`
+      search: `?${queryString.stringify({
+        searchText: this.state.searchText,
+        searchMode: this.state.searchMode,
+        sort_field: e.target.value,
+      })}`
     })
   }
   handleSelect = (value) => {
     this.props.history.replace({
       pathname: this.props.history.location.pathname,
-      search: `?${queryString.stringify({...this.state, searchMode: value})}`
+      search: `?${queryString.stringify({
+        searchText: this.state.searchText,
+        searchMode: value,
+        sort_field: this.state.sort_field,
+      })}`
     })
+  }
+  handleSearch = (e) => {
+    this.props.history.replace({
+      pathname: this.props.history.location.pathname,
+      search: `?${queryString.stringify({
+        searchText: e.target.value,
+        sort_field: this.state.sort_field,
+        searchMode: this.state.searchMode,
+      })}`
+    })
+  }
+  handleChange = (e)=> {
+    this.setState({searchText: e.target.value})
   }
   renderSelect = ()=>{
     return <Select value={this.state.searchMode} onChange={this.handleSelect}>
@@ -47,7 +65,7 @@ class BlogIndex extends React.Component {
   }
   renderOption = () => {
     return <Radio.Group
-             value={this.state.sortField}
+             value={this.state.sort_field}
              onChange={this.handleOption}
            >
       <Radio.Button value='created_at'>
@@ -61,7 +79,7 @@ class BlogIndex extends React.Component {
   renderTagSider = ()=>{
       const reducer = (o, k)=>
           ({...o, [k]:o[k]?o[k]+1:1})
-      let kv = this.props.blogs
+      let kv = this.state.blogs
             .map(blog=>blog.tags)
             .join()
             .replace(/,+/g,',')
@@ -74,12 +92,7 @@ class BlogIndex extends React.Component {
                     .sort((x,y)=>y[1]-x[1])
       return <TagSider tags={tags}/>
   }
-  onSearch = (e) => {
-    this.props.history.replace({
-      pathname: this.props.history.location.pathname,
-      search: `?${queryString.stringify({...this.state, searchText: e.target.value})}`
-    })
-  }
+
   onFilter = (blog) => {
     const filterTitle = searchText => blog.title.includes(searchText)
     const filterContent = searchText => blog.content.includes(searchText)
@@ -97,18 +110,19 @@ class BlogIndex extends React.Component {
     return filter[mode](text)
   }
   onSorter = (x, y) => {
-    const field = this.state.sortField
+    const field = this.state.sort_field
     return x[field] <= y[field] ? 1 : -1
   }
   render() {
     console.log('blog state', this.state)
-    const {blogs=[]} = this.props
-    console.log(this.props.blogs)
-    let data = blogs.filter(this.onFilter).sort(this.onSorter)
+    let data = this.state.blogs.filter(this.onFilter).sort(this.onSorter)
     console.log(data)
     return (
       <div>
-      <Input.Search defaultValue={this.state.searchText} style={{width:'80%', marginBottom:40}} onPressEnter={this.onSearch}
+      <Input.Search value={this.state.searchText}
+        style={{width:'80%', marginBottom:40}}
+        onChange={this.handleChange}
+        onPressEnter={this.handleSearch}
         addonBefore={this.renderSelect()} addonAfter={this.renderOption()}/>
       <Layout>
         <Layout.Content>

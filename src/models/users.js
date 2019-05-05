@@ -16,7 +16,7 @@ export default {
     namespace: 'users',
     state: {
         currentUser: emptyUser,
-        currentItem: null,
+        displayUser: emptyUser,
         list: users,
         isLogin: false,
         page: 1,
@@ -25,7 +25,7 @@ export default {
         totalPage: 0
     },
     subscriptions: {
-       currentUserSubsciber({ dispatch, history }) {
+        currentUserSubscriber({ dispatch, history }) {
            history.listen(({pathname})=>{
                const match = pathToRegexp('/*').exec(pathname)
                if(match) {
@@ -34,6 +34,15 @@ export default {
                }
            })
        },
+        displayUserSubscriber({dispatch, history}) {
+            history.listen(({pathname})=>{
+                const match = pathToRegexp('/principle/:id').exec(pathname)
+                if(match) {
+                    console.log('subscribe displayUser:', match)
+                    dispatch({type: 'loadDisplayUser', payload: match[1]})
+                }
+            })
+        }
     },
     effects: {
         *logout({payload}, {call, put}) {
@@ -53,12 +62,10 @@ export default {
         *loadCurrentUser({payload}, {call, put, select}) {
             try {
                 console.log('loadCurrentUser')
-                const alreadyUser = yield select(state=>state.users.currentItem)
-                console.log(alreadyUser)
-                if(alreadyUser!=null) {
-                    return
-                }
+                const isLogin = yield select(state=>state.users.isLogin)
+                if(isLogin) return
                 const token = yield call(getToken)
+                console.log('load token', token)
                 const decoded = JwtDecode(token)
                 console.log(decoded)
                 if(!decoded) {
@@ -66,6 +73,30 @@ export default {
                 }
                 const response = yield call(fetchUser, decoded.user_id)
                 yield put({type:'save', payload:response})
+            }catch (err) {
+                console.log(err.message)
+            }
+        },
+        *loadDisplayUser({payload}, {call, put, select}) {
+            try {
+                console.log('loadDisplayUser')
+                var id = payload
+                if(payload=='index') {
+                    const isLogin = yield select(state=>state.users.isLogin)
+                    const token = yield call(getToken)
+                    if(!token) {
+                        console.log('loadDisplay get Token Failed')
+                        return
+                    }
+                    const decoded = JwtDecode(token)
+                    if(!decoded) {
+                        throw Error('invalid jwt token')
+                    }
+                    id = decoded.user_id;
+                }
+                console.warn('loadDisplay', id)
+                const response = yield call(fetchUser, id)
+                yield put({type:'saveDisplay', payload:response})
             }catch (err) {
                 console.log(err.message)
             }
@@ -91,12 +122,17 @@ export default {
     },
     reducers: {
         save(state, {payload}) {
-            console.log('login save')
-            console.log(payload)
             return {
                 ...state,
                 currentUser: payload.user,
-                currentItem: payload.user,
+                isLogin: true,
+            }
+        },
+        saveDisplay(state, {payload}) {
+            console.log('saveDisplay', payload)
+            return {
+                ...state,
+                displayUser: payload.user,
                 isLogin: true,
             }
         },

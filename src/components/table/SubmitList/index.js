@@ -107,7 +107,7 @@ class SubmitList extends Component{
             console.log(a,b)
             return a.id-b.id
         },
-        sortOrder: sorteredInfo.field==='submitted_at'&&sorteredInfo.order,
+        sort_order: sorteredInfo.field==='submitted_at'&&sorteredInfo.order,
         sortDirections: ['descend', 'ascend'],
     }]
     return cols
@@ -123,8 +123,8 @@ class SubmitList extends Component{
           current_page: pagination.current,
           search,
           filters: JSON.stringify(filters),
-          sortOrder: sorter.order||'id',
-          sortField: sorter.field||'ascend',
+          sort_order: sorter.order||'id',
+          sort_field: sorter.field||'ascend',
         }
         this.props.history.replace({
           pathname:this.props.history.location.pathname,

@@ -48,7 +48,7 @@ const PersonalBar = ({user, misc})=>{
 const stateToProps = ({misc, users})=>{
     return {
         misc: misc,
-        user: users.currentUser,
+        user: users.displayUser,
     }
 }
 export default connect(stateToProps)(PersonalBar)

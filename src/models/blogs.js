@@ -72,8 +72,8 @@ export default {
             const params = extractParams(payload)
             yield put({ type:'saveParams', payload:params})
             const response = yield call(fetchBlogs,params.page,per,{
-                sort_field: params.sortField,
-                sort_order: params.sortOrder,
+                sort_field: params.sort_field,
+                sort_order: params.sort_order,
                 filters: params.filters
             })
             console.log(response)
