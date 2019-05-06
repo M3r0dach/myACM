@@ -1,6 +1,8 @@
 import { fetchStatistic } from "../services/misc";
 import { message } from "antd";
 import pathToRegexp from "path-to-regexp";
+import { getToken } from "../services/auth";
+import JwtDecode from "jwt-decode";
 
 export default {
     namespace: 'misc',
@@ -21,7 +23,20 @@ export default {
     },
     effects: {
         *fetchMisc({ payload }, { call, put }) {
-            const response = yield call(fetchStatistic)
+            var id = payload
+            if(payload=='index') {
+                const token = yield call(getToken)
+                if(!token) {
+                    console.log('fetchMisc get Token Failed')
+                    return
+                }
+                const decoded = JwtDecode(token)
+                if(!decoded) {
+                    throw Error('invalid jwt token')
+                }
+                id = decoded.user_id;
+            }
+            const response = yield call(fetchStatistic, id)
             if(response.err_code!==1&&response.data!=null) {
                 yield put({ type: 'save', payload:response});
             }else {

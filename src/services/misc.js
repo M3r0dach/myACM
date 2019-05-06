@@ -1,12 +1,7 @@
 import request from "../utils/request";
 import { API_HOST } from "../config";
 
-const fetchStatistic = ()=>{
-    return request(`${API_HOST}/api/v1/misc/statistic`)
+const fetchStatistic = (id)=>{
+    return request(`${API_HOST}/api/v1/misc/statistic/${id}`)
 }
-/*
-const fetchDashBoard = ()=>{
-    return request(`${API_HOST}/api/v1/misc/dashboard`)
-}
-*/
 export {fetchStatistic}

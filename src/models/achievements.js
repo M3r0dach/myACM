@@ -59,7 +59,9 @@ export default {
                     let query = {
                         sort_field: 'updated_at',
                         sort_order: 'descend',
-                        filters: '{}',
+                        filters: JSON.stringify({
+                            completed: 1
+                        }),
                     }
                     dispatch({type: 'saveParams', payload: query})
                     dispatch({type: 'fetchTotalPrizes', payload:query})

@@ -15,17 +15,10 @@ const Message = ({item})=>{
 }
 class FeedPage extends React.Component{
     state = {
-        users: this.props.users,
         totalPrizes: this.props.totalPrizes,
-    }
-    getNameById = id=>{
-        var sel = this.state.users.find(user=>user.id==id)
-        console.log(sel)
-        return sel?sel.display_name:null;
     }
     componentWillReceiveProps(props) {
         this.setState({
-            users:props.users,
             totalPrizes:props.totalPrizes
         })
     }
@@ -39,10 +32,10 @@ class FeedPage extends React.Component{
                     name:prize.achievement.name,
                     completed_at:prize.completed_at.substr(0,10),
                     user_id:prize.user_id,
-                    user_name: this.getNameById(prize.user_id)
+                    user_name: prize.user.display_name,
                 })
             )
-        return <Timeline style={{minHeight:300,marginTop:30,marginLeft:50}} >
+        return <Timeline style={{minHeight:700,marginTop:30,marginLeft:50}} >
             {prizes.map(
                 prize=><Timeline.Item key={prize.id} >
                     <Message item={prize}/>
@@ -51,7 +44,7 @@ class FeedPage extends React.Component{
         </Timeline>
     }
 }
-const stateToProps = ({users, achievements})=>{
-    return {users:users.list, totalPrizes:achievements.totalPrizes}
+const stateToProps = ({achievements})=>{
+    return {totalPrizes:achievements.totalPrizes}
 }
 export default connect(stateToProps)(FeedPage);
