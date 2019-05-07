@@ -6,13 +6,14 @@ import { connect } from "dva";
 const ProfileModal = ModalFactory.ProfileModal
 const PersonalProfile=({user, guest})=>{
     return <div>
-        <Card title='个人简介' extra={guest?[]:[<ProfileModal/>]}>
+        <Card  style={{marginLeft:30, marginRight:30}}
+            title='个人简介' extra={guest?[]:[<ProfileModal/>]}>
             <p>{user.description}</p>
             <p><Icon type='environment'/>:
                 {user.user_info.school+" "+user.user_info.college}
             </p>
         </Card>
-        <Card title='相关链接'>
+        <Card style={{margin:30}} title='相关链接' >
             <p><Icon type='github'/>:
                 <a href={'//'+user.user_info.phone}>
                     {user.user_info.phone}

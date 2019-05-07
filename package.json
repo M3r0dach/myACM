@@ -18,6 +18,7 @@
     "echarts-for-react": "^2.0.15-beta.0",
     "jwt-decode": "^2.2.0",
     "marked": "^0.6.2",
+    "md5": "^2.2.1",
     "mockjs": "^1.0.1-beta3",
     "prismjs": "1.14.0",
     "prop-types": "^15.7.2",

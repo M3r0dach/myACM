@@ -6,14 +6,13 @@ import AccountsTable from '../table/AccountsTable';
 import PrizeCardListFactory from '../PrizeCardListFactory';
 import { connect } from 'dva';
 import Calendar from '../Calendar';
-import { NavLink } from 'dva/router';
 
 
 class PersonalContent extends React.Component{
     render() {
         const {myPrizes, guest} = this.props
         console.log('guest', guest)
-        return <div>
+        return <div style={{marginTop:30, background:'white'}}>
             <Tabs defaultActiveKey='blogs'>
                 <Tabs.TabPane key='blogs' tab='文章'>
                     <BlogTable/>

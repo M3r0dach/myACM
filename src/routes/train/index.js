@@ -14,10 +14,10 @@ const TrainIndex = (props)=>{
     console.log(props.match)
     const {match} = props
     return <Layout>
-        <Layout.Sider>
-            <NavBar items={menu}/>
+        <Layout.Sider style={{padding:10}}>
+            <NavBar items={menu} />
         </Layout.Sider>
-        <Layout.Content>
+        <Layout.Content style={{background:'white', padding:10}}> 
             <Switch>
                 <Route path={`${match.path}/submits`} component={SubmitList}/>
                 <Route path={`${match.path}/:option`} component={RankList}/>

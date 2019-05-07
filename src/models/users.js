@@ -71,7 +71,9 @@ export default {
                     throw Error('invalid jwt token')
                 }
                 const response = yield call(fetchUser, decoded.user_id)
-                yield put({type:'save', payload:response})
+                if(response.err_code!==1&&response.user!=null) {
+                    yield put({type:'save', payload:response.user})
+                }
             }catch (err) {
                 console.log(err.message)
             }
@@ -93,9 +95,10 @@ export default {
                     }
                     id = decoded.user_id;
                 }
-                console.warn('loadDisplay', id)
                 const response = yield call(fetchUser, id)
-                yield put({type:'saveDisplay', payload:response})
+                if(response.err_code!==1&&response.user!=null) {
+                    yield put({type:'saveDisplay', payload:response.user})
+                }
             }catch (err) {
                 console.log(err.message)
             }
@@ -123,7 +126,7 @@ export default {
         save(state, {payload}) {
             return {
                 ...state,
-                currentUser: payload.user,
+                currentUser: payload,
                 isLogin: true,
             }
         },
@@ -131,7 +134,7 @@ export default {
             console.log('saveDisplay', payload)
             return {
                 ...state,
-                displayUser: payload.user,
+                displayUser: payload,
                 isLogin: true,
             }
         },

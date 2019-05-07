@@ -18,7 +18,7 @@ class AchievementLayout extends React.Component{
                 <Layout.Sider>
                     <NavBar items={menu}/>
                 </Layout.Sider>
-                <Layout.Content>
+                <Layout.Content style={{background:'white', paddingLeft:40}}>
                     <Switch>
                         <Route path={`${this.props.match.path}/me`}
                             component={MyPrizePage}/>

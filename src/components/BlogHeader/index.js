@@ -12,6 +12,7 @@ const BlogHeader=({blog})=>{
             )}
             <span className={styles.user}>{blog.user?blog.user.name:''}</span>
             <span className={styles.time}>发布于{blog.created_at}</span>
+            <span className={styles.time}>字数{blog.content.length}</span>
         </div>
     )
 }

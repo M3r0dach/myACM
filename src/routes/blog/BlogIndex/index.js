@@ -1,5 +1,5 @@
 import React from "react";
-import {List, Input, Radio, Layout, Select} from "antd";
+import {List, Input, Radio, Layout, Select, Row, Col} from "antd";
 import BlogItem from "Components/BlogItem";
 import {connect} from "dva"
 import TagSider from "Components/TagSider";
@@ -125,23 +125,23 @@ class BlogIndex extends React.Component {
         onChange={this.handleChange}
         onPressEnter={this.handleSearch}
         addonBefore={this.renderSelect()} addonAfter={this.renderOption()}/>
-      <Layout>
-        <Layout.Content>
-          <List
-            itemLayout='vertical'
-            loading = {this.props.loading}
-            dataSource={data}
-            renderItem={blog =>
-                    < BlogItem blog = {blog}
-                        onLike = {() => this.handleLike(blog)}
-                    />}
-            pagination={{ pageSize: 7 }}
-          />
-        </Layout.Content>
-        <Layout.Sider theme='light'>
-          {this.renderTagSider()}
-        </Layout.Sider>
-      </Layout>
+        <Row>
+          <Col span={16} style={{background:'white'}}>
+            <List
+              itemLayout='vertical'
+              loading = {this.props.loading}
+              dataSource={data}
+              renderItem={blog =>
+                      < BlogItem blog = {blog}
+                          onLike = {() => this.handleLike(blog)}
+                      />}
+              pagination={{ pageSize: 7 }}
+            />
+          </Col>
+          <Col span={7} offset={1} style={{background:'white'}}>
+              {this.renderTagSider()}
+          </Col>
+        </Row>
       </div>
     )
   }

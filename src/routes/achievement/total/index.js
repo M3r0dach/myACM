@@ -4,7 +4,9 @@ import PrizeCardListFactory from 'Components/PrizeCardListFactory';
 
 const AchievementsPage = props=>{
     const {achievements} = props;
-    return PrizeCardListFactory.createTotal(achievements)
+    return <div style={{marginTop: 30}}>
+        {PrizeCardListFactory.createTotal(achievements)}
+    </div>
 }
 const stateToProps = ({achievements})=>{
     return {

@@ -29,7 +29,7 @@ const PersonalBar = ({user, misc})=>{
     return <div style={{height:120, background:'white'}}>
         <Avatar src={user&&user.avatar.origin}
                 shape='circle'
-                style={{width:80, height:80, float:'left'}}
+                style={{width:80, height:80, float:'left', marginTop:20}}
             />
         <List style={{paddingLeft:100, width:320}}
                 header={<Title user={user}/>}
