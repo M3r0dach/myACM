@@ -42,9 +42,9 @@ function withParams(url, params) {
 function extractParams(query) {
     console.log('query')
     console.log(query)
-    const {page=1, per=15, search='', sort_field='id', sort_order='ascend'} = query
+    const {current_page=1, per=15, search='', sort_field='id', sort_order='ascend'} = query
     const filters = JSON.parse(query.filters||'{}')
-    return {page: parseInt(page, 10), search, sort_field, sort_order, filters, per}
+    return {current_page: parseInt(current_page, 10), search, sort_field, sort_order, filters, per}
 }
 
 //构造post表单数据

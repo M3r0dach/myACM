@@ -16,6 +16,9 @@ const fetchRankList = (page, per, params)=>{
     console.log(query)
     return request(withParams(`${API_HOST}/api/v1/spiders/rank_list`,query))
 }
+const fetchWeekRank = ()=>{
+    return request(`${API_HOST}/api/v1/spiders/week_rank`)
+}
 const fetchAccounts = (page, per, params)=>{
     console.log('fetchAccounts')
     const query = {page, per, ...params}
@@ -37,4 +40,4 @@ const deleteAccount = id => {
         method: 'DELETE'
     })
 }
-export {fetchSubmits, fetchRankList, fetchAccounts, createAccount, updateAccount, deleteAccount}
+export {fetchSubmits, fetchRankList, fetchWeekRank, fetchAccounts, createAccount, updateAccount, deleteAccount}

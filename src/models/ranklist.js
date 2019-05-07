@@ -1,9 +1,25 @@
 import { fetchRankList } from "../services/spider";
+import { extractParams } from "../utils/qs";
 
-function extractParams(query) {
-    const {current_page=1} = query||{}
-    return {current_page: parseInt(current_page, 10)}
-}
+const rankdata = [
+    {
+    order: 1,
+    user_name: 'Ann',
+    solved: 10,
+    submitted: 20,
+}, {
+    order: 2,
+    user_name: 'Ken',
+    solved: 8,
+    submitted: 10,
+},
+    {
+    order: 3,
+    user_name: 'John',
+    solved: 5,
+    submitted: 7,
+},
+]
 
 export default {
 
@@ -11,6 +27,8 @@ export default {
 
   state: {
       list: [],
+      this_week: rankdata,
+      last_week: rankdata,
       current_page: 1,
       per: 15,
       total_count: 0,
@@ -23,6 +41,8 @@ export default {
          ...state,
          ...payload.meta,
          list: payload.items,
+         this_week: payload.this_week,
+         last_week: payload.last_week,
         };
     },
   },
@@ -30,6 +50,7 @@ export default {
   effects: {
     *fetchList({ payload }, { call, put, select }) {
       const params = extractParams(payload)
+      console.log('ranklist', params)
       const per = yield select(state=>state.ranklist.per)
       const response = yield call(fetchRankList,
         params.current_page, per)
@@ -43,7 +64,7 @@ export default {
         if(pathname==='/train/total') {
           console.log('trigger refresh rank list')
           console.log(state)
-          dispatch({type: 'fetchList', payload:state})
+          dispatch({type: 'fetchList', payload:state||{}})
         }
       })
     },
