@@ -32,7 +32,6 @@ function request(url, options) {
 const headers = {
     Host: 'acm.duxy.me',
     Referer: 'http://acm.duxy.me/meter/blog/detail/51',
-    Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1NTc1NDY3OTJ9.orrxoapnzQOChlO6lObaJ1u3-XF07xl6hx978u3WfGY'
 }
 
 export default function requestWithToken(url, options={}, json=false) {
@@ -42,7 +41,7 @@ export default function requestWithToken(url, options={}, json=false) {
       headers: {
         ...headers,
         ...(options.headers||{}),
-        //Authorization: `Bearer ${getToken()}`
+        Authorization: `Bearer ${getToken()}`
       }
     }
   if(json) {
