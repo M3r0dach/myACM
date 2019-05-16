@@ -1,6 +1,5 @@
 import React from "react";
 import { Tag, Input, Icon, message } from "antd";
-import 'antd/dist/antd.css'
 import styles from "./index.css";
 class TagInput extends React.Component {
     state = {

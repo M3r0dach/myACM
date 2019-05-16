@@ -2,7 +2,6 @@ import React from "react";
 import { List} from "antd";
 import Link from '../Link'
 import IconText from '../IconText'
-import 'antd/dist/antd.css'
 import {BlogDetailRoute} from "../../config"
 const Tail = ({author, created_at})=>(
     <div>{author?<span style={{color:'green'}}>{author}</span>:''} 发布于{created_at}</div>

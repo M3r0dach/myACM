@@ -1,0 +1,61 @@
+4_dist_merge_antd_to_index git:(master) ✗ du -h ./*
+268K    ./common.js
+16K     ./favicon.ico
+456K    ./index.css
+4.0K    ./index.html
+4.2M    ./index.js
+256K    ./static
+
+# work react
+# work dva
+# not work ReactDOM
+# not work dva-loading
+# not work Prism
+# not work dva/router
+# not work react
+# not work antd按需加载
+# work echarts按需加载
+# work SimpleMDEEditor
+# work antd
+
+➜  5_dist_echarts_on_demand git:(master) ✗ du -h ./*
+268K    ./common.js
+16K     ./favicon.ico
+456K    ./index.css
+4.0K    ./index.html
+3.8M    ./index.js
+256K    ./static
+
+➜  6_dist_remove_SimpleMDEd git:(master) ✗ du -h ./*
+676K    ./common.js
+16K     ./favicon.ico
+456K    ./index.css
+4.0K    ./index.html
+3.4M    ./index.js
+256K    ./static
+
+➜  7_dist_antd_on_demand git:(master) ✗ du -h ./*
+676K    ./common.js
+16K     ./favicon.ico
+756K    ./index.css
+4.0K    ./index.html
+2.3M    ./index.js
+256K    ./static
+
+➜  8_dist_remove_prism git:(master) ✗ du -h ./*
+4.0K    ./common.css
+1.3M    ./common.js
+16K     ./favicon.ico
+756K    ./index.css
+4.0K    ./index.html
+1.7M    ./index.js
+256K    ./static
+
+➜  9_dist_remove_console git:(master) ✗ du -h ./*
+4.0K    ./common.css
+1.3M    ./common.js
+16K     ./favicon.ico
+756K    ./index.css
+4.0K    ./index.html
+1.7M    ./index.js
+256K    ./static

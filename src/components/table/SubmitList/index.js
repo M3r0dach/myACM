@@ -1,12 +1,11 @@
 import { Component } from "react";
 import { OJ_MAP } from "Models/accounts";
 import { Icon, Table, Modal, Input, Button} from "antd";
-import ModalFactory from "../../ModalFactory";
+import {CodeModal} from "../../ModalFactory";
 import { connect } from "dva";
 import { withRouter } from "dva/router";
 import "../../../index.css";
 
-const CodeModal = ModalFactory.CodeModal
 
 class SubmitList extends Component{
     state = {

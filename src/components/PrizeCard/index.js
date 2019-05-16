@@ -1,5 +1,4 @@
 import { Card, Progress } from "antd";
-import 'antd/dist/antd.css'
 import React from "react";
 import copper from 'Assets/copper.png';
 import gold from 'Assets/gold.png';

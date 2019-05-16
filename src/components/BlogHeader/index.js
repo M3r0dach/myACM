@@ -1,6 +1,5 @@
 import React from 'react'
 import { Tag } from "antd";
-import "antd/dist/antd.css"
 import styles from './index.css'
 const BlogHeader=({blog})=>{
     console.log(styles)

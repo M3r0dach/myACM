@@ -1,12 +1,9 @@
 import React from 'react'
 import { Table, Divider, Popconfirm } from "antd";
-import ModalFactory from "Components/ModalFactory";
-import 'antd/dist/antd.css'
+import {AccountModal} from "Components/ModalFactory";
 import "../../../index.css";
 import { connect } from 'dva';
 
-
-const AccountModal = ModalFactory.AccountModal
 
 class AccountsTable extends React.Component {
     state = {
@@ -81,7 +78,7 @@ class AccountsTable extends React.Component {
     }
     render() {
         return <div style={{textAlign:'left'}}>
-                <AccountModal hint='添加账号' type='button'/>
+                <AccountModal hint='添加账号' anchor='button'/>
                 <Table columns={this.getColumns()}
                     rowKey={e=>e.id}
                     dataSource={this.props.accounts}

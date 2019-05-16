@@ -2,11 +2,9 @@ import { Component } from "react";
 import { Menu, Row, Col, Dropdown, Avatar, Icon, Layout} from "antd";
 import { connect } from "dva";
 import styles from './index.less'
-import ModalFactory from "../ModalFactory";
+import {LoginModal} from "../ModalFactory";
 import NavBar from "../NavBar";
 import icpc_logo from "../../assets/icpc.png";
-
-const LoginModal = ModalFactory.LoginModal
 
 const menu = [
     {key: 1, title:'排行榜', to:'/train'},

@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Input, Button} from "antd";
-import "antd/dist/antd.css"
 import MarkdownEditor from "../../MarkdownEditor";
 import TagInput from "../../TagInput";
 import { BlogStatus} from "Models/blogs";

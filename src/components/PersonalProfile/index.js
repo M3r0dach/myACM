@@ -1,9 +1,8 @@
 import React from 'react'
 import { Icon, Card } from "antd";
-import ModalFactory from "../ModalFactory";
+import {ProfileModal} from "../ModalFactory";
 import { connect } from "dva";
 
-const ProfileModal = ModalFactory.ProfileModal
 const PersonalProfile=({user, guest})=>{
     return <div>
         <Card  style={{marginLeft:30, marginRight:30}}

@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Col, Row, Input, Button, Checkbox, Radio, InputNumber} from "antd";
 import { connect } from "dva";
-import "antd/dist/antd.css"
 
 class ProfileForm extends React.Component{
   handleSubmit = (e) => {

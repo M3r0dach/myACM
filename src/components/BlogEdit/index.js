@@ -1,7 +1,6 @@
 import React from "react";
 import { Breadcrumb} from "antd";
 import { connect } from "dva";
-import "antd/dist/antd.css"
 import { Link } from "dva/router";
 import BlogForm from "../form/BlogForm";
 

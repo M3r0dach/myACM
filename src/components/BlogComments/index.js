@@ -1,6 +1,5 @@
 import React from 'react'
 import { Comment, Avatar, List } from "antd";
-import 'antd/dist/antd.css'
 import Editor from '../Editor';
 import {connect} from 'dva'
 
@@ -15,7 +14,10 @@ class BlogComments extends React.Component {
     }
     static getDerivedStateFromProps(nextProps, preState) {
         if(nextProps.blog!=preState.currentBlog) {
-            return {currentBlog: nextProps.blog}
+            return {
+                currentBlog: nextProps.blog,
+                currentUser: nextProps.currentUser,
+            }
         }
         return null
     }

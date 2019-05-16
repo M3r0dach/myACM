@@ -1,13 +1,18 @@
 import React from 'react'
-import 'antd/dist/antd.css'
 import DataFrame from "dataframe-js";
-import echarts from "echarts";
-import ReactEcharts from "echarts-for-react";
+import echarts from "echarts/lib/echarts";
+import "echarts/lib/chart/heatmap";
+import "echarts/lib/component/title"
+import "echarts/lib/component/tooltip"
+import "echarts/lib/component/visualMap"
+import "echarts/lib/component/calendar"
+//import ReactEcharts from "echarts-for-react";
 import { connect } from "dva";
 
 class Calendar extends React.Component {
     state = {
-        user: null
+        user: null,
+        submits: []
     }
     static onUpdate(user, dispatch) {
         if(user&&user.id) {
@@ -31,10 +36,12 @@ class Calendar extends React.Component {
             console.log('next props')
             Calendar.onUpdate(nextProps.user, nextProps.dispatch)
             return {user: nextProps.user}
+        }else if(nextProps.submits&&nextProps.submits!=preState.submits){
+            return {submits: nextProps.submits}
         }
         return null
     }
-    getOption(data) {
+    getOption(data=[]) {
         console.log('data', data)
         return {
             title: {
@@ -80,14 +87,22 @@ class Calendar extends React.Component {
         console.log(count.toArray())
         return count.toArray()
     }
+    componentDidMount() {
+        this.mychart = echarts.init(document.getElementById('chart'))
+        this.mychart.setOption(this.getOption())
+    }
+    shouldComponentUpdate(newProps, newState) {
+        this.mychart.setOption(
+            this.getOption(
+                this.formatData(this.state.submits)
+            )
+        )
+        return true
+    }
     render() {
-        return <ReactEcharts
-                    option={this.getOption(
-                        this.formatData(this.props.submits)
-                    )}
-                    showLoading={this.props.loading}
-                    style={{width:"95%", height: 500}}
-                />
+        return <div id='chart' style={{
+                width: "95%", height: 500,
+            }}></div>
     }
 }
 const stateToProps = ({users,submits, loading})=>{

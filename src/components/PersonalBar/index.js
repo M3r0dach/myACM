@@ -1,6 +1,5 @@
 import React from 'react'
 import {Avatar, List, Icon} from "antd";
-import 'antd/dist/antd.css'
 import { connect } from "dva";
 
 const MetaBlock = ({title, value})=>{

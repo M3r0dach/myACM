@@ -1,13 +1,11 @@
 import React from 'react'
 import { Table, Divider, Button, Popconfirm } from "antd";
-import ModalFactory from "Components/ModalFactory";
+import {BlogModal} from "../../ModalFactory";
 import Link from "Components/Link";
-import 'antd/dist/antd.css'
 import '../../../index.css'
 import { BlogStatus } from "Models/blogs";
 import { connect } from 'dva';
 import { withRouter, routerRedux } from "dva/router";
-const BlogModal = ModalFactory.BlogModal
 
 class BlogTable extends React.Component {
     state = {

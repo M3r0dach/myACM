@@ -3,7 +3,6 @@ import { Layout, Row, Col } from "antd";
 import PersonalBar from "Components/PersonalBar";
 import PersonalContent from 'Components/PersonalContent'
 import PersonalProfile from "Components/PersonalProfile";
-import 'antd/dist/antd.css'
 
 const Principle=()=> {
     return <Layout>

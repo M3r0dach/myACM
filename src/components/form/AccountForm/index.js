@@ -1,6 +1,5 @@
 import React from "react";
 import { Form,  Input, Button, Select, } from "antd";
-import 'antd/dist/antd.css'
 import { connect } from "dva";
 import {OJ_MAP} from '../../../config'
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { List, Card, Icon } from 'antd';
-import 'antd/dist/antd.css'
 import ModalFactory from "../ModalFactory";
 import { IconFont } from "../IconText";
 import DataFrame from "dataframe-js";

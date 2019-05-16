@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import 'antd/dist/antd.css'
 const TextArea = Input.TextArea
 const Editor = ({
   onChange, onSubmit, submitting, value,

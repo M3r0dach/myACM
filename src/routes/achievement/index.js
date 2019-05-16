@@ -1,6 +1,5 @@
 import { Layout} from "antd";
 import { Switch, Route, Redirect} from "dva/router";
-import 'antd/dist/antd.css'
 import React from "react";
 import MyPrizePage from "./me";
 import FeedPage from "./feed";
