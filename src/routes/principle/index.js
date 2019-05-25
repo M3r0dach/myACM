@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch ,Route, Redirect } from "dva/router";
 import PrincipleIndex from "./PrincipleIndex";
-import BlogEdit from 'Components/BlogEdit';
+import BlogEdit from './BlogEdit';
 
 const PrincipleLayout = ({match})=>{
     return <Switch>

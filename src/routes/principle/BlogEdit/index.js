@@ -2,7 +2,7 @@ import React from "react";
 import { Breadcrumb} from "antd";
 import { connect } from "dva";
 import { Link } from "dva/router";
-import BlogForm from "../form/BlogForm";
+import BlogForm from "Components/form/BlogForm";
 
 class BlogEdit extends React.Component{
   handleSubmit = (payload)=>{

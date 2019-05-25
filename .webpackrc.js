@@ -1,14 +1,16 @@
 var path = require('path')
 module.exports={
+    "devtool": "source-map",
     "entry": {
         "index": "./src/index.js",
-        "common": "./src/vendor.js"
+        "common": "./src/vendor.js",
+        "admin": "./src/admin.js"
     },
     "commons": [{
         "name": "common",
         "filename": "common.js"
     }],
-    "publicPath": "/frontend/",
+    "publicPath": "/",
     "proxy": {
         "/api": {
             "target": "http://acm.duxy.me/",

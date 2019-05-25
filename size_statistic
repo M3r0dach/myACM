@@ -59,3 +59,34 @@
 4.0K    ./index.html
 1.7M    ./index.js
 256K    ./static
+
+➜  dist_split git:(master) ✗ du -h ./*
+684K    ./0.async.js
+172K    ./1.async.js
+108K    ./2.async.js
+100K    ./3.async.js
+4.0K    ./common.css
+1.3M    ./common.js
+16K     ./favicon.ico
+756K    ./index.css
+4.0K    ./index.html
+1012K   ./index.js
+256K    ./static
+➜  dist_splitPrinciple git:(master) ✗ du -h ./*
+500K    ./0.async.js
+4.0K    ./common.css
+1.3M    ./common.js
+16K     ./favicon.ico
+756K    ./index.css
+4.0K    ./index.html
+1.3M    ./index.js
+256K    ./static
+➜  dist_mergemdetoprinciple git:(master) ✗ du -h ./*
+16K     ./favicon.ico
+756K    ./index.css
+4.0K    ./index.html
+1.3M    ./index.js
+896K    ./principle.async.js
+256K    ./static
+4.0K    ./vendor.css
+864K    ./vendor.js

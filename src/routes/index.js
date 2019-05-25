@@ -4,12 +4,26 @@ import { Layout} from "antd";
 import { Route, Switch, Redirect } from 'dva/router';
 import AchievementLayout from "./achievement";
 import BlogLayout from "./blog";
-import PrincipleLayout from "./principle";
 import TrainLayout from "./train";
 import Header from "Components/Header";
 import Footer from "Components/Footer";
 import 'antd/dist/antd.css'
 import styles from "./index.less";
+import Loadable from "react-loadable";
+const LoadingComponent = ({pastDelay})=>{
+  if(pastDelay) {
+    return <div>Loading</div>
+  }else {
+    return null
+  }
+}
+const PrincipleLayout = Loadable({
+  loading: LoadingComponent,
+  loader: ()=>import(
+      /* webpackChunkName: "principle" */
+      './principle'
+    )
+})
 
 class IndexPage extends React.Component{
   render() {
@@ -23,7 +37,7 @@ class IndexPage extends React.Component{
             <Route path='/blog' component={BlogLayout}/>
             <Route path='/achievement' component={AchievementLayout}/>
             <Route path='/principle' component={PrincipleLayout}/>
-            <Redirect to='/principle'/>
+            <Redirect to='/blog'/>
           </Switch>
         </Layout>
         <Layout.Footer className={styles.layout_bottom}>

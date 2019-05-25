@@ -1,7 +1,6 @@
 import LoginForm from "../form/LoginForm";
 import ProfileForm from "../form/ProfileForm";
 import AccountForm from "../form/AccountForm";
-import BlogForm from "../form/BlogForm";
 import CodeBlock from "../CodeBlock";
 import createModal from "./createModal";
 
@@ -25,8 +24,4 @@ const AccountModal = ({hint='编辑',title='账号修改', anchor='span', accoun
     return <AccountComponent hint={hint} title={title} anchor={anchor} account={account}/>
 }
 
-const BlogComponent=createModal(BlogForm)
-const BlogModal = ({hint='博客', title='创建博客', anchor='span', blog={}})=>{
-    return <BlogComponent hint={hint} title={title} anchor={anchor} blog={blog}/> 
-}
-export {LoginModal, ProfileModal, CodeModal, AccountModal, BlogModal}
+export {LoginModal, ProfileModal, CodeModal, AccountModal}

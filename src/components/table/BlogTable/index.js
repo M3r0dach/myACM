@@ -1,6 +1,5 @@
 import React from 'react'
 import { Table, Divider, Button, Popconfirm } from "antd";
-import {BlogModal} from "../../ModalFactory";
 import Link from "Components/Link";
 import '../../../index.css'
 import { BlogStatus } from "Models/blogs";

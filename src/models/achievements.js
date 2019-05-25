@@ -85,7 +85,7 @@ export default {
                 sort_order:params.sort_order,
                 filters:params.filters
             })
-            yield put({type:'saveMyPrizes', payload:response})
+            if(response.items) yield put({type:'saveMyPrizes', payload:response})
         },
         *fetchTotalPrizes({ payload }, { call, put, select }) {
             const params = extractParams(payload)
@@ -95,11 +95,11 @@ export default {
                 sort_order:params.sort_order,
                 filters:params.filters
             })
-            yield put({type:'saveTotalPrizes', payload:response})
+            if(response.items) yield put({type:'saveTotalPrizes', payload:response})
         },
         *fetchAchievements({ payload }, { call, put }) {
             const response = yield call(fetchAchieve)
-            yield put({type:'saveAchievements', payload:response})
+            if(response.items) yield put({type:'saveAchievements', payload:response})
         },
     },
     reducers: {

@@ -6,7 +6,6 @@ import "echarts/lib/component/title"
 import "echarts/lib/component/tooltip"
 import "echarts/lib/component/visualMap"
 import "echarts/lib/component/calendar"
-//import ReactEcharts from "echarts-for-react";
 import { connect } from "dva";
 
 class Calendar extends React.Component {
