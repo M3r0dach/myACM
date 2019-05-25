@@ -9,6 +9,9 @@
 # testdata
 /src/testdata
 
+# react-playground
+/.react-playground
+
 # misc
 .DS_Store
 npm-debug.log*
