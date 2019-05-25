@@ -4,7 +4,6 @@ import { Icon, Table, Modal, Input, Button} from "antd";
 import {CodeModal} from "../../ModalFactory";
 import { connect } from "dva";
 import { withRouter } from "dva/router";
-import "../../../index.css";
 
 
 class SubmitList extends Component{

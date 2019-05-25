@@ -1,7 +1,6 @@
 import React from 'react'
 import { Table, Divider, Popconfirm } from "antd";
 import {AccountModal} from "Components/ModalFactory";
-import "../../../index.css";
 import { connect } from 'dva';
 
 

@@ -4,7 +4,7 @@ import { Table, Alert } from "antd";
 import { connect } from "dva";
 import { withRouter } from "dva/router";
 import UserLink from "Components/UserLink";
-import '../../../index.css'
+//import '../../../index.css'
 const originURL = '/train/total'
 const getColumns = () => {
   const columns = [{

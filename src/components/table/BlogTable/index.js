@@ -1,7 +1,6 @@
 import React from 'react'
 import { Table, Divider, Button, Popconfirm } from "antd";
 import Link from "Components/Link";
-import '../../../index.css'
 import { BlogStatus } from "Models/blogs";
 import { connect } from 'dva';
 import { withRouter, routerRedux } from "dva/router";

@@ -20,6 +20,7 @@ const LoadingComponent = ({pastDelay})=>{
 const PrincipleLayout = Loadable({
   loading: LoadingComponent,
   loader: ()=>import(
+      /* webpackPrefetch: true */
       /* webpackChunkName: "principle" */
       './principle'
     )

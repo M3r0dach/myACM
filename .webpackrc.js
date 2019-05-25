@@ -1,10 +1,16 @@
-var path = require('path')
+const path=require('path')
 module.exports={
+    html:{
+        favicon: 'src/assets/favicon.ico',
+        inject: true,
+        template: path.resolve('src/index.ejs'),
+        chunks: ["common", "index"]
+    },
     "devtool": "source-map",
     "entry": {
-        "index": "./src/index.js",
-        "common": "./src/vendor.js",
-        "admin": "./src/admin.js"
+        "index": "./src/entries/index/index.js",
+        "common": "./src/entries/vendor.js",
+        "admin": "./src/entries/admin/admin.js"
     },
     "commons": [{
         "name": "common",
@@ -32,6 +38,7 @@ module.exports={
     ],
     alias: {
         Assets: path.resolve('./src/assets'),
+        Routes: path.resolve('./src/routes'),
         Components: path.resolve('./src/components'),
         Models: path.resolve('./src/models'),
         Services: path.resolve('./src/services'),

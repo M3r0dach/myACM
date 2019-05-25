@@ -1,12 +1,21 @@
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
+const _ = require('lodash')
 
-module.exports = (config, { webpack }) => {
-  console.log()
-  //config.plugins.push(new BundleAnalyzerPlugin())
-  config.plugins.push(new InterpolateHtmlPlugin(HtmlWebpackPlugin,{
-    "PUBLIC_URL": '/'
-  }))
-  return config
+module.exports = function (webpackConfig, env) {
+
+  for (let index in webpackConfig.plugins) {
+    let plugin = webpackConfig.plugins[index]
+
+
+    // 增加多页面
+    if (plugin.constructor.name == 'HtmlWebpackPlugin') {
+      const newPlugin = _.cloneDeep(plugin)
+      newPlugin.options.filename = 'admin.html'
+      newPlugin.options.chunks = ['common', 'admin']
+      webpackConfig.plugins.splice(index, 0, newPlugin)
+      break
+    }
+  }
+  return webpackConfig;
 }

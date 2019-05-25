@@ -2,7 +2,6 @@ import dva from 'dva'
 import Models from 'Models'
 import {createHashHistory} from 'history'
 import createLoading from "dva-loading";
-import './index.css';
 
 // 1. Initialize
 const history = createHashHistory()
