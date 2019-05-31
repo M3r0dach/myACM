@@ -17,7 +17,7 @@ Models.forEach(m => {
 });
 
 // 4. Router
-app.router(()=><h1>Hello World</h1>);
+app.router(require('./router').default);
 
 // 5. Start
 app.start('#root');

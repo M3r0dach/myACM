@@ -12,7 +12,8 @@ module.exports = function (webpackConfig, env) {
     if (plugin.constructor.name == 'HtmlWebpackPlugin') {
       const newPlugin = _.cloneDeep(plugin)
       newPlugin.options.filename = 'admin.html'
-      newPlugin.options.chunks = ['common', 'admin']
+      newPlugin.options.chunks = ['common', 'index']
+      newPlugin.options.template = 'src/index.ejs'
       webpackConfig.plugins.splice(index, 0, newPlugin)
       break
     }

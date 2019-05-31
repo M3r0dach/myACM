@@ -3,11 +3,24 @@ import { fetchToken, saveToken, removeToken, getToken } from "../services/auth";
 import { fetchUser, updateUser } from "../services/user";
 import JwtDecode from "jwt-decode";
 import pathToRegexp from "path-to-regexp";
+import users from "./user_data";
 
 const emptyUser = {
     nickname: '未登录',
     user_info:{},
     avatar:{}
+};
+export const UserRole = {
+  STUDENT: 1,
+  COACH: 2,
+  ADMIN: 4
+};
+
+export const UserStatus = {
+  REJECT: -1,
+  APPLY: 0,
+  TRAIN: 1,
+  RETIRE: 2
 };
 
 
@@ -16,7 +29,7 @@ export default {
     state: {
         currentUser: emptyUser,
         displayUser: emptyUser,
-        list: [],
+        list: users,
         isLogin: false,
         page: 1,
         per: 15,

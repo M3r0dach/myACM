@@ -16,7 +16,7 @@ module.exports={
         "name": "common",
         "filename": "common.js"
     }],
-    "publicPath": "/",
+    "publicPath": "/frontend/",
     "proxy": {
         "/api": {
             "target": "http://acm.duxy.me/",
@@ -34,7 +34,7 @@ module.exports={
     },
     "extraBabelPlugins": [
       ["import", { "libraryName": "antd", "style": true }],
-      "transform-remove-console"
+      //"transform-remove-console"
     ],
     alias: {
         Assets: path.resolve('./src/assets'),
