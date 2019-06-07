@@ -6,6 +6,11 @@ import DataFrame from "dataframe-js";
 import echarts from "echarts";
 import { fetchSubmits } from "../../services/spider";
 
+const View=()=>{
+    return <div>
+        <h1>wood</h1>
+    </div>
+}
 const modal = ()=>{
     return ModalFactory.createLoginModal()
 }

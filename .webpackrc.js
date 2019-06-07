@@ -16,7 +16,7 @@ module.exports={
         "name": "common",
         "filename": "common.js"
     }],
-    "publicPath": "/frontend/",
+    "publicPath": "/",
     "proxy": {
         "/api": {
             "target": "http://acm.duxy.me/",
@@ -25,7 +25,7 @@ module.exports={
         "/uploads": {
             "target": "http://acm.duxy.me/",
             "changeOrigin": true
-        }
+        },
     },
     "define": {
         "process.env": {},
